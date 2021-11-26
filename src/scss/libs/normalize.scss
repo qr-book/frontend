@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Raleway", sans-serif;
+}
+
+img {
+  pointer-events: none;
+  vertical-align: middle;
+}
+svg {
+  vertical-align: middle;
+}
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
