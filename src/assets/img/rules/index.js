@@ -1,0 +1,12 @@
+export { default as rule1 } from "./rule1.png";
+export { default as rule2 } from "./rule2.png";
+export { default as rule3 } from "./rule3.png";
+export { default as rule4 } from "./rule4.png";
+export { default as rule5 } from "./rule5.png";
+export { default as rule6 } from "./rule6.png";
+export { default as rule7 } from "./rule7.png";
+export { default as rule8 } from "./rule8.png";
+export { default as rule9 } from "./rule9.png";
+export { default as rule10 } from "./rule10.png";
+export { default as rule11 } from "./rule11.png";
+export { default as rule12 } from "./rule12.png";

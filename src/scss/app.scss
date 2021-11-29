@@ -1,6 +1,6 @@
-@import 'libs/normalize';
-@import 'variables';
-@import 'fonts';
+@import "libs/normalize";
+@import "variables";
+@import "fonts";
 
 /*
 INDEX
@@ -71,7 +71,11 @@ HEADER
   }
 }
 .dropbtn {
+  display: flex;
+  width: 100%;
   line-height: 56px;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 /* Dropdown Content (Hidden by Default) */
@@ -79,7 +83,7 @@ HEADER
   display: none;
   position: absolute;
   top: 56px;
-  left: 50px;
+  right: 30px;
   z-index: 1;
   /* Links inside the dropdown */
   a {
@@ -140,6 +144,9 @@ HOME MAIN
   }
 }
 .create {
+  img {
+    margin-bottom: 20px;
+  }
   .button {
     width: 168px;
     text-align: center;
@@ -180,29 +187,42 @@ MY QRs MAIN
     margin-bottom: 12px;
   }
 }
-.sort-button {
-  display: none;
-  &:checked {
-    & + .sort-icon {
-      opacity: 1;
+
+.sort,
+.sort-dropdown-content {
+  ul {
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      cursor: pointer;
     }
   }
 }
-.sort-icon {
-  opacity: 0;
+
+.sort-button {
+  display: none;
 }
 .sort-dropdown-content {
-  display: none;
   position: absolute;
-  top: 180px;
   z-index: 1;
-  label {
+  li {
+    width: 120px;
     padding: 16px;
-    margin: 10px 0;
     border-radius: 10px;
     background-color: $background_color_5;
   }
 }
+
+.sort-icon {
+  opacity: 0;
+}
+
+.active-sort .sort-icon {
+  opacity: 1;
+}
+
 .sort-dropdown {
   display: none;
   width: 168px;
@@ -211,11 +231,6 @@ MY QRs MAIN
   height: 54px;
   border-radius: 5px;
   background-color: $background_color_5;
-  &:hover {
-    .sort-dropdown-content {
-      display: block;
-    }
-  }
 }
 .create-button {
   width: 168px;
