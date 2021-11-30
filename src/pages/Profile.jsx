@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import defaultAvatar from "../assets/img/default_avatar.png";
+import defaultAvatarPng from "../assets/img/default_avatar.png";
 
 function Profile() {
   return (
@@ -15,9 +15,11 @@ function Profile() {
             <span>example@qr.com</span>
           </div>
           <div className="profile-img">
-            <img src={defaultAvatar} alt="" />
+            <img src={defaultAvatarPng} alt="" />
             <div className="profile-buttons col">
-              <div className="button link">Edit</div>
+              <Link to="/feed" className="button link">
+                Edit
+              </Link>
               <Link to="/my" className="button link">
                 My QRs
               </Link>

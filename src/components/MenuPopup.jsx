@@ -18,7 +18,7 @@ function MenuPopup({ loginState, adminState }) {
       ) : (
         <div className="dropdown-content login-none">
           <Link to="/login">Log in</Link>
-          <Link to="/singup">Sing up</Link>
+          <Link to="/signup">Sing up</Link>
         </div>
       )}
     </div>

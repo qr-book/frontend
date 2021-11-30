@@ -1,8 +1,6 @@
 import React from "react";
 
-import ada from "../assets/img/devs/ada.png";
-import banana from "../assets/img/devs/banana.png";
-import jaba from "../assets/img/devs/jaba.png";
+import { ada, banana, jaba } from "../assets/img/footer";
 
 function Footer() {
   return (

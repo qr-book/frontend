@@ -29,7 +29,7 @@ function MobileMenuPopup({ loginState, adminState }) {
           <Link to="/create">Create</Link>
           <Link to="/rules">Rules</Link>
           <Link to="/feedback">Feedback</Link>
-          <Link to="/singup">Sing up</Link>
+          <Link to="/signup">Sing up</Link>
           <Link to="/login">Login</Link>
         </div>
       )}

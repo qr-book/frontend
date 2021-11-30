@@ -1,6 +1,9 @@
-export { default as Home } from "./Home";
-export { default as MyQRs } from "./MyQRs";
 export { default as Admin } from "./Admin";
-export { default as Rules } from "./Rules";
+export { default as Home } from "./Home";
+export { default as Login } from "./Login";
+export { default as MyQRs } from "./MyQRs";
 export { default as NotFounded } from "./NotFounded";
 export { default as Profile } from "./Profile";
+export { default as ProfileEdit } from "./ProfileEdit";
+export { default as Registration } from "./Registration";
+export { default as Rules } from "./Rules";

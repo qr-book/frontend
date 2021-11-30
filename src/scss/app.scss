@@ -364,6 +364,7 @@ REGISTRATION LOGIN MAIN
   justify-content: space-evenly;
 }
 .google-btn {
+  cursor: pointer;
   margin: 0 8px;
   background-color: $background_color_7;
   &:hover {

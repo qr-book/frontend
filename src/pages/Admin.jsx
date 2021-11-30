@@ -26,7 +26,7 @@ function Admin() {
         <div className="qr-list">
           <div className="qr">
             <div className="qr-img">
-              <img src="img/qr-code.png" alt="" srcset="" />
+              <img src="img/qr-code.png" alt="" />
             </div>
             <div className="qr-info">
               <div className="col">
@@ -82,7 +82,7 @@ function Admin() {
           </div>
           <div className="qr">
             <div className="qr-img">
-              <img src="img/qr-code.png" alt="" srcset="" />
+              <img src="img/qr-code.png" alt="" />
             </div>
             <div className="qr-info">
               <div className="col">
@@ -138,7 +138,7 @@ function Admin() {
           </div>
           <div className="qr">
             <div className="qr-img">
-              <img src="img/qr-code.png" alt="" srcset="" />
+              <img src="img/qr-code.png" alt="" />
             </div>
             <div className="qr-info">
               <div className="col">
