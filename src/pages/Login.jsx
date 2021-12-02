@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import emailIcon from "../assets/img/email-icon.svg";
-import passIcon from "../assets/img/password-icon.svg";
+import emailIconSvg from "../assets/img/email-icon.svg";
+import passIconSvg from "../assets/img/password-icon.svg";
 
 function Login() {
   return (
@@ -32,7 +32,7 @@ function Login() {
             <span>Or</span>
             <form action="" method="post" className="auth-block col">
               <label htmlFor="email">
-                <img src={emailIcon} alt="" />
+                <img src={emailIconSvg} alt="" />
                 <input
                   type="email"
                   name="email"
@@ -42,7 +42,7 @@ function Login() {
                 />
               </label>
               <label htmlFor="password">
-                <img src={passIcon} alt="" />
+                <img src={passIconSvg} alt="" />
                 <input
                   type="password"
                   name="password"

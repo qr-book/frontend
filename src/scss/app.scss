@@ -290,7 +290,7 @@ MY QRs MAIN
     color: $color_2;
     margin-top: 18px;
   }
-  a {
+  .qr-value {
     margin: 18px 0 0 8px;
     color: $color_2;
   }
@@ -782,14 +782,8 @@ FOOTER
   .qr-info {
     margin: 0 10px 0 32px;
   }
-  .qr-stat {
-    .col {
-      .row {
-        a {
-          display: none;
-        }
-      }
-    }
+  .qr-stat .qr-value {
+    display: none;
   }
   .url-copy {
     display: block;
