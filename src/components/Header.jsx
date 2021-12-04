@@ -5,7 +5,7 @@ import { MenuPopup, MobileMenuPopup } from ".";
 import { logoSvg, profileSvg, mobileNavBarSvg } from "../assets/img/header";
 
 function Header() {
-  let login = 0;
+  let login = 1;
   let admin = 0;
 
   return (

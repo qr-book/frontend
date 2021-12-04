@@ -1,8 +1,11 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { Route, Routes } from "react-router-dom";
 
-import { Header, Footer } from "./components";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setQRs } from "./redux/actions/qrs";
+
+import { Footer, Header } from "./components";
 import {
   Admin,
   Home,
@@ -16,30 +19,28 @@ import {
 } from "./pages";
 
 function App() {
-  const [QRs, setQRs] = React.useState([]);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    axios.get("http://localhost:3000/db.json").then(({ data }) => {
-      setQRs(data.qrs);
+    axios.get("http://localhost:3001/qrs?_sort=date&_order=asc").then(({ data }) => {
+      dispatch(setQRs(data));
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Registration />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/feed" element={<ProfileEdit />} />
-          <Route path="/my" element={<MyQRs items={QRs} />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/rules" element={<Rules />} />
-          <Route path="*" element={<NotFounded />} />
-        </Routes>
-      </BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Registration />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/feed" element={<ProfileEdit />} />
+        <Route path="/my" element={<MyQRs />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/rules" element={<Rules />} />
+        <Route path="*" element={<NotFounded />} />
+      </Routes>
       <Footer />
     </div>
   );

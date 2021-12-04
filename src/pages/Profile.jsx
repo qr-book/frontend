@@ -1,9 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import defaultAvatarPng from "../assets/img/default_avatar.png";
+import { QRBlockMinimize } from "../components";
 
 function Profile() {
+  const items = useSelector(({ qrs }) => qrs.items.slice(0, 2));
+
   return (
     <div className="main profile">
       <div className="container">
@@ -31,34 +35,9 @@ function Profile() {
           <hr className="mobile-hr" />
           <hr className="desktop-hr" />
           <div className="qr-list list-recent">
-            <div className="qr qr-recent">
-              <div className="qr-img">
-                <img src="img/qr-code.png" alt="" />
-              </div>
-              <div className="qr-info">
-                <div className="qr-name">
-                  <div className="col">
-                    <span>Klenin Sosi Pisun Bo</span>
-                    <hr />
-                    <span>21.11.21</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="qr qr-recent">
-              <div className="qr-img">
-                <img src="img/qr-code.png" alt="" />
-              </div>
-              <div className="qr-info">
-                <div className="qr-name">
-                  <div className="col">
-                    <span>Klenin Sosi Pisun Bo</span>
-                    <hr />
-                    <span>21.11.21</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {items.map((obj) => (
+              <QRBlockMinimize key={obj.id} {...obj} />
+            ))}
           </div>
         </div>
       </div>

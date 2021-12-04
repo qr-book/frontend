@@ -1,10 +1,11 @@
 import React from "react";
 
-function MobileSortPopup({ items }) {
+const MobileSortPopup = React.memo(function MobileSortPopup({ items }) {
   const [visibleSortPopup, setVisiblePopup] = React.useState(false);
   const [activeSortType, setActiveSortType] = React.useState(0);
+  const activeSortLabel = items[activeSortType].name;
+
   const sortRef = React.useRef();
-  const activeSortLabel = items[activeSortType];
 
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visibleSortPopup);
@@ -45,15 +46,15 @@ function MobileSortPopup({ items }) {
         <div className="sort-dropdown-content">
           <ul>
             {items &&
-              items.map((name, index) => (
+              items.map((obj, index) => (
                 <li
                   onClick={() => onSelectItem(index)}
                   className={`link
                   ${activeSortType === index ? "active-sort" : ""}
                   `}
-                  key={`${name}_${index}`}
+                  key={`${obj.name}_${index}`}
                 >
-                  {name}
+                  {obj.name}
                   <svg
                     className="sort-icon"
                     width="17"
@@ -74,6 +75,6 @@ function MobileSortPopup({ items }) {
       )}
     </div>
   );
-}
+});
 
 export default MobileSortPopup;

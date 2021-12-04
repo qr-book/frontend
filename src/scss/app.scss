@@ -421,8 +421,9 @@ ADMIN PANEL
 .stat-block {
   display: flex;
   justify-content: center;
+  flex-grow: 1;
   padding: 8px 48px;
-  margin: 10px 0;
+  margin: 10px 8px;
   border-radius: 10px;
   background-color: $background_color_9;
   font-size: 1.8rem;
@@ -597,11 +598,6 @@ PROFILE
   margin: 10px 10px;
   min-width: 30%;
   box-shadow: none;
-  .qr-img {
-    img {
-      width: 93px;
-    }
-  }
   .qr-info {
     margin: 0 16px;
     hr {

@@ -1,7 +1,22 @@
+@import "../variables";
+
 * {
   margin: 0;
   padding: 0;
   font-family: "Raleway", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #eb923c;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #da623f;
 }
 
 img {

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Sort({ items }) {
+const Sort = React.memo(function Sort({ items }) {
   const [activeSortType, setActiveSortType] = React.useState(0);
   const onSelectItem = (index) => {
     setActiveSortType(index);
@@ -11,15 +11,15 @@ function Sort({ items }) {
       <h3>Sort:</h3>
       <ul>
         {items &&
-          items.map((name, index) => (
+          items.map((obj, index) => (
             <li
               onClick={() => onSelectItem(index)}
               className={`
                   ${activeSortType === index ? "active-sort" : ""}
                   `}
-              key={`${name}_${index}`}
+              key={`${obj.name}_${index}`}
             >
-              {name}
+              {obj.name}
               <svg
                 className="sort-icon"
                 width="17"
@@ -38,6 +38,6 @@ function Sort({ items }) {
       </ul>
     </div>
   );
-}
+});
 
 export default Sort;
