@@ -1,10 +1,51 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import axios from "axios";
+import https from "https";
+import { useDispatch } from "react-redux";
+
 import emailIconSvg from "../assets/img/email-icon.svg";
 import passIconSvg from "../assets/img/password-icon.svg";
 
 function Login() {
+  const [emailValue, setEmailValue] = React.useState("");
+  const [passwordValue, setPasswordValue] = React.useState("");
+
+  const dispatch = useDispatch();
+  const fetchUser = (email, password) => (dispatch) => {
+    axios
+      .get(
+        "https:localhost/user",
+        {},
+        {
+          auth: {
+            username: email,
+            password: password,
+          },
+        },
+        {
+          httpsAgent: new https.Agent({
+            rejectUnauthorized: false,
+          }),
+        }
+      )
+      .then(({ email, password, role }) => {
+        dispatch({
+          type: "SET_EMAIL",
+          payload: email,
+        });
+        dispatch({
+          type: "SET_PASSWORD",
+          payload: password,
+        });
+        dispatch({
+          type: "SET_ADMIN",
+          payload: role.name === "admin" ? true : false,
+        });
+      });
+  };
+
   return (
     <div className="main">
       <div className="container">
@@ -30,10 +71,12 @@ function Login() {
             </div>
             <hr />
             <span>Or</span>
-            <form action="" method="post" className="auth-block col">
+            <div className="auth-block col">
               <label htmlFor="email">
                 <img src={emailIconSvg} alt="" />
                 <input
+                  value={emailValue}
+                  onChange={(e) => setEmailValue(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
@@ -44,6 +87,8 @@ function Login() {
               <label htmlFor="password">
                 <img src={passIconSvg} alt="" />
                 <input
+                  value={passwordValue}
+                  onChange={(e) => setPasswordValue(e.target.value)}
                   type="password"
                   name="password"
                   id="password"
@@ -51,8 +96,13 @@ function Login() {
                   required
                 />
               </label>
-              <button className="auth-button link">Log in</button>
-            </form>
+              <button
+                onClick={fetchUser(emailValue, passwordValue)}
+                className="auth-button link"
+              >
+                Log in
+              </button>
+            </div>
             <hr />
             <Link to="/signup" className="link">
               Sign up
