@@ -1,49 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import axios from "axios";
-import https from "https";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userLogin } from "../service/validator";
+import api from "../service/api";
 import { useDispatch } from "react-redux";
+import { authUser } from "../redux/actions/user";
 
 import emailIconSvg from "../assets/img/email-icon.svg";
 import passIconSvg from "../assets/img/password-icon.svg";
 
 function Login() {
-  const [emailValue, setEmailValue] = React.useState("");
-  const [passwordValue, setPasswordValue] = React.useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+  } = useForm({
+    resolver: yupResolver(userLogin),
+  });
 
   const dispatch = useDispatch();
-  const fetchUser = (email, password) => (dispatch) => {
-    axios
-      .get(
-        "https:localhost/user",
-        {},
-        {
-          auth: {
-            username: email,
-            password: password,
-          },
-        },
-        {
-          httpsAgent: new https.Agent({
-            rejectUnauthorized: false,
-          }),
-        }
-      )
-      .then(({ email, password, role }) => {
-        dispatch({
-          type: "SET_EMAIL",
-          payload: email,
+  const onSubmit = async ({ email, password }) => {
+    try {
+      const {
+        data: { name, role },
+      } = await api.auth.login(email, password);
+      dispatch(authUser(email, password, name, role));
+    } catch (e) {
+      if (e.response.status === 401) {
+        setError("data", {
+          type: "manual",
+          message: e.response.data.data,
         });
-        dispatch({
-          type: "SET_PASSWORD",
-          payload: password,
-        });
-        dispatch({
-          type: "SET_ADMIN",
-          payload: role.name === "admin" ? true : false,
-        });
-      });
+      }
+    }
   };
 
   return (
@@ -71,38 +64,47 @@ function Login() {
             </div>
             <hr />
             <span>Or</span>
-            <div className="auth-block col">
+            <form onSubmit={handleSubmit(onSubmit)} className="auth-block col">
+              {
+                <p className="error-msg">
+                  {errors.email?.message ||
+                    errors.password?.message ||
+                    (errors.data ? "Sorry this " + errors.data.message : null)}
+                </p>
+              }
               <label htmlFor="email">
                 <img src={emailIconSvg} alt="" />
                 <input
-                  value={emailValue}
-                  onChange={(e) => setEmailValue(e.target.value)}
                   type="email"
                   name="email"
                   id="email"
                   placeholder="example@qr.com"
-                  required
+                  {...register("email", {
+                    required: true,
+                    onChange: () => {
+                      clearErrors("data");
+                    },
+                  })}
                 />
               </label>
               <label htmlFor="password">
                 <img src={passIconSvg} alt="" />
                 <input
-                  value={passwordValue}
-                  onChange={(e) => setPasswordValue(e.target.value)}
                   type="password"
                   name="password"
-                  id="password"
                   placeholder="••••••"
-                  required
+                  {...register("password", {
+                    required: true,
+                    onChange: () => {
+                      clearErrors("data");
+                    },
+                  })}
                 />
               </label>
-              <button
-                onClick={fetchUser(emailValue, passwordValue)}
-                className="auth-button link"
-              >
+              <button type="submit" className="auth-button link">
                 Log in
               </button>
-            </div>
+            </form>
             <hr />
             <Link to="/signup" className="link">
               Sign up

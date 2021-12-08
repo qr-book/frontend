@@ -1,10 +1,46 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { userLogin } from "../service/validator";
+import api from "../service/api";
+import { useDispatch } from "react-redux";
+import { authUser } from "../redux/actions/user";
+
 import emailIconSvg from "../assets/img/email-icon.svg";
 import passIconSvg from "../assets/img/password-icon.svg";
 
 function Login() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+  } = useForm({
+    resolver: yupResolver(userLogin),
+  });
+
+  const dispatch = useDispatch();
+  const onSubmit = async ({ email, password }) => {
+    try {
+      const {
+        data: { name, role },
+      } = await api.auth
+        .registation(email, password)
+        .then(() => api.auth.login(email, password));
+      dispatch(authUser(email, password, name, role));
+    } catch (e) {
+      if (e.response.status === 400) {
+        setError("data", {
+          type: "manual",
+          message: e.response.data.data,
+        });
+      }
+    }
+  };
+
   return (
     <div className="main">
       <div className="container">
@@ -30,7 +66,14 @@ function Login() {
             </div>
             <hr />
             <span>Or</span>
-            <form action="" method="post" className="auth-block col">
+            <form onSubmit={handleSubmit(onSubmit)} className="auth-block col">
+              {
+                <p className="error-msg">
+                  {errors.email?.message ||
+                    errors.password?.message ||
+                    (errors.data ? "Sorry this " + errors.data.message : null)}
+                </p>
+              }
               <label htmlFor="email">
                 <img src={emailIconSvg} alt="" />
                 <input
@@ -38,7 +81,12 @@ function Login() {
                   name="email"
                   id="email"
                   placeholder="example@qr.com"
-                  required
+                  {...register("email", {
+                    required: true,
+                    onChange: () => {
+                      clearErrors("data");
+                    },
+                  })}
                 />
               </label>
               <label htmlFor="password">
@@ -46,12 +94,18 @@ function Login() {
                 <input
                   type="password"
                   name="password"
-                  id="password"
                   placeholder="••••••"
-                  required
+                  {...register("password", {
+                    required: true,
+                    onChange: () => {
+                      clearErrors("data");
+                    },
+                  })}
                 />
               </label>
-              <button className="auth-button link">Join</button>
+              <button type="submit" className="auth-button link">
+                Join
+              </button>
             </form>
             <hr />
             <Link to="/login" className="link">

@@ -1,12 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../redux/actions/user";
+
 import { MenuPopup, MobileMenuPopup } from ".";
-import { logoSvg, profileSvg, mobileNavBarSvg } from "../assets/img/header";
+import { logoSvg, profileSvg } from "../assets/img/header";
 
 function Header() {
-  let login = 1;
-  let admin = 0;
+  const { email, admin } = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
+  const logout = () => {
+    dispatch(logoutUser());
+  };
 
   return (
     <div className="header">
@@ -35,15 +42,10 @@ function Header() {
                 <img src={profileSvg} alt="" />
               </Link>
             </div>
-            <MenuPopup loginState={login} adminState={admin} />
+            <MenuPopup loginState={email ? true : false} adminState={admin} onClickLogout={logout}/>
           </div>
         </div>
-        <div className="popup-navbar">
-          <div className="popup-btn">
-            <img src={mobileNavBarSvg} alt="" />
-          </div>
-          <MobileMenuPopup loginState={login} adminState={admin} />
-        </div>
+        <MobileMenuPopup loginState={email ? true : false} adminState={admin} onClickLogout={logout}/>
       </div>
     </div>
   );

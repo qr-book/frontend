@@ -7,6 +7,7 @@ import { QRBlockMinimize } from "../components";
 
 function Profile() {
   const items = useSelector(({ qrs }) => qrs.items.slice(0, 2));
+  const {email, name} = useSelector((state) => state.user);
 
   return (
     <div className="main profile">
@@ -14,9 +15,9 @@ function Profile() {
         <div className="profile-content">
           <div className="profile-info">
             <hr className="mobile-hr" />
-            <h1>Bublik</h1>
+            <h1>{name}</h1>
             <hr className="desktop-hr" />
-            <span>example@qr.com</span>
+            <span>{email}</span>
           </div>
           <div className="profile-img">
             <img src={defaultAvatarPng} alt="" />
