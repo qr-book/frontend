@@ -54,7 +54,7 @@ HEADER
 }
 .logo {
   a {
-    padding: 10px;
+    padding: 12px;
     margin: 0 20px;
   }
 }
@@ -96,24 +96,29 @@ HEADER
 }
 .popup-navbar {
   display: none;
-}
-.popup-content {
-  display: none;
-  position: absolute;
-  justify-content: center;
-  flex-wrap: wrap;
-  flex: 1 1 0;
-  width: 100%;
-  top: 57px;
-  left: 0px;
-  background-color: $background_color_1;
-  z-index: 1;
-  a {
-    margin: 10px;
-    width: 160px;
-    line-height: 50px;
-    border-radius: 5px;
+
+  .popup-btn {
+    cursor: pointer;
+  }
+  .popup-content {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex: 1 1 0;
+    width: 100%;
+    top: 57px;
+    left: 0px;
     background-color: $background_color_1;
+    z-index: 1;
+    a,
+    span {
+      margin: 10px;
+      width: 160px;
+      line-height: 50px;
+      border-radius: 5px;
+      background-color: $background_color_1;
+    }
   }
 }
 
@@ -122,7 +127,7 @@ HOME MAIN
 */
 .main {
   display: flex;
-  min-height: calc(100vh - 250px);
+  min-height: calc(100vh - 230px);
   background-color: $background_color_2;
   .container {
     max-width: 948px;
@@ -326,9 +331,11 @@ MY QRs MAIN
 /*
 REGISTRATION LOGIN MAIN
 */
+
 .auth-title {
   width: 275px;
   padding: 0 5vw;
+  margin: 78px 0 10px;
   border-radius: 10px;
   background-color: $background_color_5;
   color: $color_1;
@@ -344,15 +351,21 @@ REGISTRATION LOGIN MAIN
   align-items: center;
   border-radius: 10px;
   padding: 36px 5vw 36px;
-  margin: 36px 0 0 0;
+  margin: 36px 0 78px 0;
   background-color: $background_color_5;
   span {
     color: $color_1;
   }
+  .error-msg {
+    margin: 8px 0 4px;
+    align-self: center;
+    color: rgb(190, 54, 54);
+    font-weight: 700;
+  }
   hr {
     width: 100%;
     height: 2px;
-    margin: 20px 0;
+    margin: 25px 0;
     background-color: $background_color_8;
     border: none;
   }
@@ -376,8 +389,10 @@ REGISTRATION LOGIN MAIN
     }
   }
 }
+
 .auth-block {
   width: 100%;
+
   label {
     display: flex;
     justify-content: space-around;
@@ -391,9 +406,13 @@ REGISTRATION LOGIN MAIN
     line-height: 24px;
   }
 }
+
+#submit {
+  display: none;
+}
 .auth-button {
   width: 60%;
-  margin: 18px 0;
+  margin: 18px 0 0;
   border-radius: 10px;
   line-height: 44px;
   align-self: center;
@@ -679,11 +698,11 @@ FOOTER
   margin: 0 2vw;
 }
 .created-by {
-  margin: 28px 0 10px;
+  margin: 16px 0 10px;
   color: $color_1;
 }
 .year {
-  margin: 10px 0 25px;
+  margin: 10px 0 16px;
   color: $color_1;
 }
 
@@ -704,11 +723,6 @@ FOOTER
   }
   .popup-navbar {
     display: block;
-    &:hover {
-      .popup-content {
-        display: flex;
-      }
-    }
   }
 
   /*

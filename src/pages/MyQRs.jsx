@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
-import { Sort, MobileSortPopup, QRBlock } from "../components";
+import { MobileSortPopup, QRBlock, Sort } from "../components";
 
 const sortItems = [
   { name: "newest first", type: "newest" },
