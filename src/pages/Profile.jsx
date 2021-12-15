@@ -36,9 +36,9 @@ function Profile() {
           <hr className="mobile-hr" />
           <hr className="desktop-hr" />
           <div className="qr-list list-recent">
-            {items.map((obj) => (
+            {items.length > 0 ? items.map((obj) => (
               <QRBlockMinimize key={obj.id} {...obj} />
-            ))}
+            )) : <h3>You have no QR codes</h3>}
           </div>
         </div>
       </div>
