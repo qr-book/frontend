@@ -2,15 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 import QRCode from "qrcode.react";
 
-function QRBlock({ title, date, value, scans, bgColor, fgColor }) {
+import * as dayjs from "dayjs";
+import * as utc from "dayjs/plugin/utc";
+
+function QRBlock(data) {
+  const { title, text, uuid, date_update, dark_color, light_color } = data;
+  const value = uuid ? `$https://localhost/link?uuid=${uuid}` : text;
+  dayjs.extend(utc);
   return (
     <div className="qr">
       <div className="qr-img">
         <QRCode
           value={value}
           size={113}
-          bgColor={bgColor}
-          fgColor={fgColor}
+          bgColor={`#${light_color}`}
+          fgColor={`#${dark_color}`}
           includeMargin={true}
           level={"Q"}
         />
@@ -19,27 +25,30 @@ function QRBlock({ title, date, value, scans, bgColor, fgColor }) {
         <div className="col">
           <div className="qr-name">
             <span>{title}</span>
-            <span>{date}</span>
+            <span>{dayjs.utc(date_update).local().format("DD.MM.YY")}</span>
           </div>
           <hr />
           <div className="qr-stat">
             <div className="col">
               <div className="row">
-                <span>URL: </span>
-                <a className="qr-value" href={value}>
-                  {value}
-                </a>
-                {/* <span className="qr-value">SOSI KLENIN</span> */}
+                {uuid ? <span>URL: </span> : <span>Text: </span>}
+                {uuid ? (
+                  <a className="qr-value" href={text}>
+                    {text}
+                  </a>
+                ) : (
+                  <span className="qr-value">{text}</span>
+                )}
                 <span
                   className="url-copy"
                   onClick={() => {
-                    navigator.clipboard.writeText(value);
+                    navigator.clipboard.writeText(text);
                   }}
                 >
                   Copy me
                 </span>
               </div>
-              <span>Scans {scans}</span>
+              <span>Scans {1337}</span>
             </div>
           </div>
         </div>
@@ -90,8 +99,7 @@ QRBlock.propTypes = {
 QRBlock.defaultProps = {
   title: "QR code",
   date: "14.12.12",
-  value:
-    "https://ribalych.ru/wp-content/uploads/2014/02/2061.jpg",
+  value: "https://ribalych.ru/wp-content/uploads/2014/02/2061.jpg",
   scans: 3301,
   bgColor: "#000",
   fgColor: "#fff",

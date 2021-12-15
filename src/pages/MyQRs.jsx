@@ -1,19 +1,22 @@
 import React from "react";
+
+import api from "../service/api";
 import { useSelector } from "react-redux";
 import { MobileSortPopup, QRBlock, Sort } from "../components";
 
 const sortItems = [
-  { name: "newest first", type: "newest" },
-  { name: "oldest first", type: "oldest" },
+  { name: "newest first", type: "DESC" },
+  { name: "oldest first", type: "ASC" },
 ];
 
 function MyQRs() {
-  const { items, sortBy } = useSelector(({ qrs, sorts }) => {
-    return {
-      items: qrs.items,
-      sortBy: sorts.sortBy,
-    };
-  });
+  const { email, password } = useSelector((state) => state.user);
+  const { sortBy } = useSelector((state) => state.sorts);
+  const [items, setItems] = React.useState([]);
+
+  React.useEffect(() => {
+    api.qr.get(email, password, "DESC").then(({ data }) => setItems(data.data));
+  }, [email, password]);
 
   return (
     <div className="main qrs">
@@ -29,8 +32,11 @@ function MyQRs() {
         </div>
         <div className="qr-delimiter"></div>
         <div className="qr-list">
-          {items && items.map((obj) => <QRBlock key={obj.id} {...obj} />)}
-          {items.length < 1 && <h1>You have no QR codes {":("}</h1>}
+          {items.length > 0 ? (
+            items.map((obj) => <QRBlock key={obj.id} {...obj} />)
+          ) : (
+            <h1>You have no QR codes {":("}</h1>
+          )}
         </div>
       </div>
     </div>

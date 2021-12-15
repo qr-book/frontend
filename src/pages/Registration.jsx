@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { userLogin } from "../service/validator";
+import { userReg } from "../service/validator";
 import api from "../service/api";
 import { useDispatch } from "react-redux";
 import { authUser } from "../redux/actions/user";
@@ -19,7 +19,7 @@ function Login() {
     setError,
     clearErrors,
   } = useForm({
-    resolver: yupResolver(userLogin),
+    resolver: yupResolver(userReg),
   });
 
   const dispatch = useDispatch();

@@ -65,7 +65,7 @@ function ProfileEdit() {
           <div className="form-info">
             <p className="error-msg">
               {errors.email?.message ||
-                errors.password?.message ||
+                errors.name?.message ||
                 (errors.data ? errors.data.message : null)}
             </p>
             <input

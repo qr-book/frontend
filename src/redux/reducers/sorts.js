@@ -1,5 +1,5 @@
 const initialState = {
-  sortBy: "newest",
+  sortBy: "DESC",
 };
 
 const sorts = (state = initialState, action) => {
