@@ -1,4 +1,7 @@
 @import "libs/normalize";
+@import "libs/adaptive";
+@import "components/toggle";
+@import "components/colorPicker";
 @import "variables";
 @import "fonts";
 
@@ -96,6 +99,7 @@ HEADER
 }
 .popup-navbar {
   display: none;
+  z-index: 10000;
 
   .popup-btn {
     cursor: pointer;
@@ -285,7 +289,7 @@ MY QRs MAIN
   justify-content: space-between;
   margin: 10px 0;
   span {
-    max-width: 70%;
+    max-width: 100px;
     font-weight: 700;
   }
 }
@@ -344,6 +348,14 @@ REGISTRATION LOGIN MAIN
   text-align: center;
   user-select: none;
 }
+
+.error-msg {
+  margin: 8px 0 4px;
+  align-self: center;
+  color: rgb(190, 54, 54);
+  font-weight: 400;
+}
+
 .reg-panel {
   display: flex;
   flex-direction: column;
@@ -356,12 +368,7 @@ REGISTRATION LOGIN MAIN
   span {
     color: $color_1;
   }
-  .error-msg {
-    margin: 8px 0 4px;
-    align-self: center;
-    color: rgb(190, 54, 54);
-    font-weight: 700;
-  }
+
   hr {
     width: 100%;
     height: 2px;
@@ -450,12 +457,12 @@ ADMIN PANEL
     padding: 0 46px;
     margin-bottom: 4px;
     line-height: 40px;
-    color: $color_3;
+    color: $color_2;
     background-color: $background_color_8;
   }
 }
 .stat-title {
-  color: $color_4;
+  color: $color_3;
   font-size: 1.1rem;
   align-self: center;
 }
@@ -571,6 +578,7 @@ PROFILE
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  margin: 40px;
 }
 .profile-info {
   display: flex;
@@ -589,8 +597,8 @@ PROFILE
   justify-content: center;
   align-items: center;
   img {
-    width: 228;
-    height: 228;
+    width: 228px;
+    height: 228px;
     margin: 10px;
   }
 }
@@ -609,6 +617,7 @@ PROFILE
 }
 .list-recent {
   display: flex;
+  min-height: 100px;
   padding: 0;
 }
 .qr-recent {
@@ -643,7 +652,7 @@ PROFILE EDIT
     padding: 0 10px;
     border: 1px solid #000;
     border-radius: 10px;
-    line-height: 24px;
+    line-height: 36px;
     margin: 10px 0;
   }
   button {
@@ -685,6 +694,108 @@ PROFILE EDIT
 }
 
 /*
+QR CREATE
+*/
+.create-qrs form {
+  display: flex;
+}
+
+.qr-config,
+.qr-preview {
+  display: flex;
+  align-items: center;
+  margin: 24px 20px;
+  padding: 20px 40px;
+  border-radius: 10px;
+  background-color: $background_color_9;
+}
+
+.qr-config-form,
+.qr-section,
+.frame-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.qr-config-form {
+  section {
+    margin: 18px 0;
+  }
+  input {
+    margin: 6px 0;
+    padding: 0 10px;
+    border: none;
+    border-radius: 10px;
+    line-height: 30px;
+    font-size: 16px;
+  }
+  label span {
+    font-size: 18px;
+    font-weight: 400;
+  }
+  select {
+    height: 30px;
+    margin: 10px 0;
+    padding: 0 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+}
+
+.color-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  input {
+    margin-right: 90px;
+    width: 30%;
+  }
+}
+
+.frames {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0px;
+  list-style: none;
+  background-color: $background_color_8;
+  li {
+    display: inline;
+    margin: 10px 2rem;
+    cursor: pointer;
+    img {
+      width: 56px;
+      height: 65px;
+    }
+  }
+}
+
+.qr-preview {
+  justify-content: center;
+  flex-wrap: wrap;
+  .preview {
+    margin: 18px 0;
+  }
+}
+
+.create-buttons {
+  display: flex;
+  flex-direction: column;
+  input {
+    align-self: center;
+    width: 200px;
+    margin: 18px 0;
+    border: none;
+    border-radius: 10px;
+    background-color: $background_color_3;
+    color: $color_1;
+    font-size: 18px;
+    line-height: 44px;
+  }
+}
+
+/*
 FOOTER
 */
 .footer {
@@ -704,184 +815,4 @@ FOOTER
 .year {
   margin: 10px 0 16px;
   color: $color_1;
-}
-
-@media (min-width: 360px) and (max-width: 996px) {
-  /*
-  HEADER
-  */
-  .logo {
-    a {
-      margin: 0;
-      &:nth-child(2) {
-        display: none;
-      }
-    }
-  }
-  .nav-bar {
-    display: none;
-  }
-  .popup-navbar {
-    display: block;
-  }
-
-  /*
-  HOME
-  */
-  .main {
-    .container {
-      align-content: center;
-    }
-  }
-  .content {
-    display: flex;
-    flex-direction: column;
-    h1 {
-      margin: 24px 0;
-    }
-  }
-  #main-qr {
-    display: none;
-  }
-  #mobile-qr {
-    display: block;
-    margin-bottom: 28px;
-    img {
-      width: 296px;
-    }
-  }
-  .create {
-    margin: 30px 0;
-    align-self: center;
-    img {
-      display: none;
-    }
-  }
-
-  /*
-  MY QRs
-  */
-  .qrs {
-    .container {
-      flex-direction: column;
-    }
-  }
-  .sort {
-    display: none;
-  }
-  .qr-delimiter {
-    display: none;
-  }
-  .create-button {
-    width: 160px;
-    margin: 30px 2vw;
-  }
-  .sort-dropdown {
-    display: block;
-    width: 160px;
-    margin: 30px 2vw;
-  }
-  .qr-list {
-    margin: 0 0 20px 0;
-    padding: 0;
-  }
-  .qr {
-    min-width: 0;
-    box-shadow: none;
-  }
-  .qr-info {
-    margin: 0 10px 0 32px;
-  }
-  .qr-stat .qr-value {
-    display: none;
-  }
-  .url-copy {
-    display: block;
-  }
-  .qr-buttons {
-    right: 10px;
-  }
-  .qr-btn {
-    margin: 0 4px;
-    svg {
-      width: 22px;
-    }
-  }
-
-  /*
-  REGISTRATION LOGIN
-   */
-  .auth-title {
-    margin: 78px 0 10px;
-  }
-  .reg-panel {
-    margin: 10px 0 78px;
-  }
-
-  /*
-  ADMIN
-  */
-  .stat {
-    flex-direction: column;
-  }
-
-  /*
-  FAQ
-  */
-  .rule-cats {
-    flex-direction: column;
-  }
-
-  /*
-  PROFILE
-  */
-  .desktop-hr {
-    display: none;
-  }
-  .mobile-hr {
-    display: block;
-  }
-  .profile-content {
-    flex-direction: column-reverse;
-  }
-  .profile-img {
-    flex-direction: row;
-    margin-top: 48px;
-    img {
-      width: 181px;
-      height: 181px;
-    }
-  }
-  .profile-info {
-    align-items: center;
-    span {
-      align-self: center;
-    }
-  }
-  .list-recent {
-    flex-direction: column;
-  }
-  .qr-recent {
-    .qr-info {
-      span {
-        white-space: normal;
-        overflow: auto;
-        text-overflow: ellipsis;
-      }
-    }
-  }
-
-  /*
-  PROFILE EDIT
-  */
-  .form-avatar {
-    margin: 40px 0;
-    img {
-      width: 181px;
-      height: 181px;
-    }
-  }
-  .submit {
-    margin: 40px 0;
-  }
 }
