@@ -6,8 +6,8 @@ import * as dayjs from "dayjs";
 import * as utc from "dayjs/plugin/utc";
 
 function QRBlock(data) {
-  const { title, text, uuid, date_update, dark_color, light_color } = data;
-  const value = uuid ? `$https://localhost/link?uuid=${uuid}` : text;
+  const { title, text, uuid, date_update, dark_color, light_color, quality, scans } = data;
+  const value = uuid ? `https://localhost/link?uuid=${uuid}` : text;
   dayjs.extend(utc);
   return (
     <div className="qr">
@@ -18,13 +18,13 @@ function QRBlock(data) {
           bgColor={`#${light_color}`}
           fgColor={`#${dark_color}`}
           includeMargin={true}
-          level={"Q"}
+          level={quality}
         />
       </div>
       <div className="qr-info">
         <div className="col">
           <div className="qr-name">
-            <span>{title}</span>
+            <span className="qrTitle">{title}</span>
             <span>{dayjs.utc(date_update).local().format("DD.MM.YY")}</span>
           </div>
           <hr />
@@ -48,7 +48,7 @@ function QRBlock(data) {
                   Copy me
                 </span>
               </div>
-              <span>Scans {1337}</span>
+              <span>Scans {scans}</span>
             </div>
           </div>
         </div>

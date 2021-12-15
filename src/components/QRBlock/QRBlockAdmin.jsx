@@ -2,38 +2,48 @@ import React from "react";
 import PropTypes from "prop-types";
 import QRCode from "qrcode.react";
 
-function QRBlockAdmin({ title, date, value, scans, bgColor, fgColor }) {
+import * as dayjs from "dayjs";
+import * as utc from "dayjs/plugin/utc";
+
+function QRBlockAdmin(data) {
+  const { title, text, uuid, date_update, dark_color, light_color, scans, quality } =
+    data;
+  const value = uuid ? `https://localhost/link?uuid=${uuid}` : text;
+  dayjs.extend(utc);
   return (
     <div className="qr">
       <div className="qr-img">
         <QRCode
           value={value}
           size={113}
-          bgColor={bgColor}
-          fgColor={fgColor}
+          bgColor={light_color}
+          fgColor={dark_color}
           includeMargin={true}
-          level={"Q"}
+          level={quality}
         />
       </div>
       <div className="qr-info">
         <div className="col">
           <div className="qr-name">
             <span>{title}</span>
-            <span>{date}</span>
+            <span>{dayjs.utc(date_update).local().format("DD.MM.YY")}</span>
           </div>
           <hr />
           <div className="qr-stat">
             <div className="col">
               <div className="row">
-                <span>URL: </span>
-                <a className="qr-value" href={value}>
-                  {value}
-                </a>
-                {/* <span className="qr-value">SOSI KLENIN</span> */}
+                {uuid ? <span>URL: </span> : <span>Text: </span>}
+                {uuid ? (
+                  <a className="qr-value" href={text}>
+                    {text}
+                  </a>
+                ) : (
+                  <span className="qr-value">{text}</span>
+                )}
                 <span
                   className="url-copy"
                   onClick={() => {
-                    navigator.clipboard.writeText(value);
+                    navigator.clipboard.writeText(text);
                   }}
                 >
                   Copy me

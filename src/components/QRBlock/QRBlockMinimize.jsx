@@ -2,17 +2,25 @@ import React from "react";
 import PropTypes from "prop-types";
 import QRCode from "qrcode.react";
 
-function QRBlockMinimize({ title, date, value, bgColor, fgColor }) {
+import * as dayjs from "dayjs";
+import * as utc from "dayjs/plugin/utc";
+
+function QRBlockMinimize(data) {
+  const { title, text, uuid, date_update, dark_color, light_color, quality } =
+    data;
+  const value = uuid ? `https://localhost/link?uuid=${uuid}` : text;
+  dayjs.extend(utc);
+
   return (
     <div className="qr qr-recent">
       <div className="qr-img">
         <QRCode
           value={value}
           size={93}
-          bgColor={bgColor}
-          fgColor={fgColor}
+          bgColor={"#" + light_color}
+          fgColor={"#" + dark_color}
           includeMargin={true}
-          level={"Q"}
+          level={quality}
         />
       </div>
       <div className="qr-info">
@@ -20,7 +28,7 @@ function QRBlockMinimize({ title, date, value, bgColor, fgColor }) {
           <div className="col">
             <span>{title}</span>
             <hr />
-            <span>{date}</span>
+            <span>{dayjs.utc(date_update).local().format("DD.MM.YY")}</span>
           </div>
         </div>
       </div>
