@@ -26,10 +26,12 @@ function Login() {
   const onSubmit = async ({ email, password }) => {
     try {
       const {
-        data: { name, role },
-      } = await api.auth
+        data: {
+          data: { name, role },
+        },
+      } = await api.user
         .registation(email, password)
-        .then(() => api.auth.login(email, password));
+        .then(() => api.user.login(email, password));
       dispatch(authUser(email, password, name, role));
     } catch (e) {
       if (e.response.status === 400) {
