@@ -1,0 +1,96 @@
+@import "../variables";
+
+span.toggle {
+  display: flex;
+  position: relative;
+
+  width: 150px;
+  height: 40px;
+  border-radius: 25px;
+  cursor: pointer;
+
+  input {
+    appearance: none;
+
+    position: relative;
+
+    width: 150px;
+    height: 30px;
+    border-radius: 25px;
+
+    background-color: $color_1;
+    outline: none;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      z-index: 2;
+
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      color: $greenblue;
+    }
+    &:before {
+      content: "Text";
+      left: 22px;
+    }
+    &:after {
+      content: "URL";
+      right: 22px;
+    }
+  }
+  label {
+    z-index: 1;
+    position: absolute;
+    top: 10px;
+    bottom: 10px;
+
+    border-radius: 20px;
+  }
+  &.switcher-1 {
+    input {
+      transition: 0.25s -0.1s;
+      &:not(:checked) {
+        background-color: $color_1;
+        &:before {
+          color: $color_1;
+          transition: color 0.5s 0.2s;
+        }
+        &:after {
+          color: $color_2;
+          transition: color 0.5s;
+        }
+        & + label {
+          left: 10px;
+          right: 80px;
+
+          background: $greenblue;
+
+          transition: left 0.5s, right 0.4s 0.2s;
+        }
+      }
+      &:checked {
+        background: $color_1;
+        transition: background 0.5s -0.1s;
+        &:before {
+          color: $color_2;
+          transition: color 0.5s;
+        }
+        &:after {
+          color: $color_1;
+          transition: color 0.5s 0.2s;
+        }
+        & + label {
+          left: 80px;
+          right: 10px;
+
+          background: $greenblue;
+
+          transition: left 0.4s 0.2s, right 0.5s, background 0.35s -0.1s;
+        }
+      }
+    }
+  }
+}
