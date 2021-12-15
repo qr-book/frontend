@@ -26,8 +26,10 @@ function Login() {
   const onSubmit = async ({ email, password }) => {
     try {
       const {
-        data: { name, role },
-      } = await api.auth.login(email, password);
+        data: {
+          data: { name, role },
+        },
+      } = await api.user.login(email, password);
       dispatch(authUser(email, password, name, role));
     } catch (e) {
       if (e.response.status === 401) {
@@ -69,7 +71,7 @@ function Login() {
                 <p className="error-msg">
                   {errors.email?.message ||
                     errors.password?.message ||
-                    (errors.data ? "Sorry this " + errors.data.message : null)}
+                    (errors.data ? errors.data.message : null)}
                 </p>
               }
               <label htmlFor="email">
