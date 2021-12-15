@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import {
   Admin,
+  Create,
   Home,
   Login,
   MyQRs,
@@ -31,6 +32,7 @@ function Pages() {
         <Route path="/admin" element={<Admin />} />
       </Route>
       <Route path="/rules" element={<Rules />} />
+      <Route path="/create" element={<Create />} />
       <Route path="*" element={<NotFounded />} />
     </Routes>
   );
