@@ -6,6 +6,11 @@
   font-family: "Raleway", sans-serif;
 }
 
+:root {
+  scrollbar-color: #da623f, #eb923c;
+  scrollbar-width: 8px;
+}
+
 ::-webkit-scrollbar {
   width: 8px;
 }

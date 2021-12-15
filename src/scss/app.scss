@@ -258,6 +258,9 @@ MY QRs MAIN
   &::-webkit-scrollbar {
     width: 0;
   }
+  &:root {
+    scrollbar-width: 0;
+  }
 }
 .qr {
   position: relative;

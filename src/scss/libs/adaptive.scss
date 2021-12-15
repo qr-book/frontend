@@ -158,10 +158,16 @@
     .qr-info {
       span {
         white-space: normal !important;
-        overflow: auto !important;
+        overflow: hidden !important;
         text-overflow: ellipsis !important;
       }
     }
+  }
+
+  .qrTitle {
+    max-width: 80px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /*
