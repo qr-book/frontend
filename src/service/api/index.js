@@ -1,7 +1,9 @@
-import auth from "./auth";
+import user from "./user";
+import qr from "./qr";
 
 const allEndpoints = {
-  auth,
+  user,
+  qr,
 };
 
 export default allEndpoints;
