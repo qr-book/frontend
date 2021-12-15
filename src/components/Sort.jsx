@@ -1,9 +1,12 @@
 import React from "react";
 
-const Sort = React.memo(function Sort({ items }) {
-  const [activeSortType, setActiveSortType] = React.useState(0);
-  const onSelectItem = (index) => {
-    setActiveSortType(index);
+const Sort = React.memo(function Sort({
+  items,
+  activeSortType,
+  onClickSortType,
+}) {
+  const onSelectItem = (order) => {
+    onClickSortType(order);
   };
 
   return (
@@ -13,9 +16,9 @@ const Sort = React.memo(function Sort({ items }) {
         {items &&
           items.map((obj, index) => (
             <li
-              onClick={() => onSelectItem(index)}
+              onClick={() => onSelectItem(obj.type)}
               className={`
-                  ${activeSortType === index ? "active-sort" : ""}
+                  ${activeSortType === obj.type ? "active-sort" : ""}
                   `}
               key={`${obj.name}_${index}`}
             >

@@ -1,9 +1,12 @@
 import React from "react";
 
-const MobileSortPopup = React.memo(function MobileSortPopup({ items }) {
+const MobileSortPopup = React.memo(function MobileSortPopup({
+  items,
+  activeSortType,
+  onClickSortType,
+}) {
   const [visibleSortPopup, setVisiblePopup] = React.useState(false);
-  const [activeSortType, setActiveSortType] = React.useState(0);
-  const activeSortLabel = items[activeSortType].name;
+  const activeSortLabel = items.find((obj) => obj.type === activeSortType).name;
 
   const sortRef = React.useRef();
 
@@ -12,7 +15,7 @@ const MobileSortPopup = React.memo(function MobileSortPopup({ items }) {
   };
 
   const onSelectItem = (index) => {
-    setActiveSortType(index);
+    onClickSortType(index);
     setVisiblePopup(false);
   };
 
@@ -48,9 +51,9 @@ const MobileSortPopup = React.memo(function MobileSortPopup({ items }) {
             {items &&
               items.map((obj, index) => (
                 <li
-                  onClick={() => onSelectItem(index)}
+                  onClick={() => onSelectItem(obj.type)}
                   className={`link
-                  ${activeSortType === index ? "active-sort" : ""}
+                  ${activeSortType === obj.type ? "active-sort" : ""}
                   `}
                   key={`${obj.name}_${index}`}
                 >
