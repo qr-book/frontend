@@ -1,7 +1,10 @@
 import React from "react";
 
 import api from "../service/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../redux/actions/user";
+import { setSortBy } from "../redux/actions/sorts";
+
 import { MobileSortPopup, QRBlock, Sort } from "../components";
 
 const sortItems = [
@@ -13,21 +16,44 @@ function MyQRs() {
   const { email, password } = useSelector((state) => state.user);
   const { sortBy } = useSelector((state) => state.sorts);
   const [items, setItems] = React.useState([]);
+  const dispatch = useDispatch();
+
+  const onSelectSortType = React.useCallback(
+    (type) => {
+      dispatch(setSortBy(type));
+    },
+    [dispatch]
+  );
 
   React.useEffect(() => {
-    api.qr.get(email, password, "DESC").then(({ data }) => setItems(data.data));
-  }, [email, password]);
+    api.qr
+      .get(email, password, sortBy)
+      .then(({ data }) => setItems(data.data))
+      .catch((e) => {
+        if (e.response.status === 401) {
+          dispatch(logoutUser());
+        }
+      });
+  }, [dispatch, sortBy, email, password]);
 
   return (
     <div className="main qrs">
       <div className="container">
         <div className="panel">
-          <Sort items={sortItems} />
+          <Sort
+            items={sortItems}
+            activeSortType={sortBy}
+            onClickSortType={onSelectSortType}
+          />
           <div className="row">
             <a href="/create" className="create-button link">
               Create new
             </a>
-            <MobileSortPopup items={sortItems} />
+            <MobileSortPopup
+              items={sortItems}
+              activeSortType={sortBy}
+              onClickSortType={onSelectSortType}
+            />
           </div>
         </div>
         <div className="qr-delimiter"></div>

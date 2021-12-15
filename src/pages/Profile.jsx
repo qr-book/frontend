@@ -1,13 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+import api from "../service/api";
+import { useSelector, useDispatch } from "react-redux";
+import { logoutUser } from "../redux/actions/user";
 
 import defaultAvatarPng from "../assets/img/default_avatar.png";
 import { QRBlockMinimize } from "../components";
 
 function Profile() {
-  const items = useSelector(({ qrs }) => qrs.items.slice(0, 2));
-  const {email, name} = useSelector((state) => state.user);
+  const { email, password, name } = useSelector((state) => state.user);
+  const [items, setItems] = React.useState([]);
+
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    api.qr
+      .get(email, password, "DESC")
+      .then(({ data }) => setItems(data.data.slice(0, 2)))
+      .catch((e) => {
+        if (e.response.status === 401) {
+          dispatch(logoutUser());
+        }
+      });
+  }, [dispatch, email, password]);
 
   return (
     <div className="main profile">
@@ -36,9 +51,11 @@ function Profile() {
           <hr className="mobile-hr" />
           <hr className="desktop-hr" />
           <div className="qr-list list-recent">
-            {items.length > 0 ? items.map((obj) => (
-              <QRBlockMinimize key={obj.id} {...obj} />
-            )) : <h3>You have no QR codes</h3>}
+            {items.length > 0 ? (
+              items.map((obj) => <QRBlockMinimize key={obj.id} {...obj} />)
+            ) : (
+              <h3>You have no QR codes</h3>
+            )}
           </div>
         </div>
       </div>

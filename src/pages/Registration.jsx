@@ -34,6 +34,7 @@ function Login() {
         .then(() => api.user.login(email, password));
       dispatch(authUser(email, password, name, role));
     } catch (e) {
+      console.log(e.response.status);
       if (e.response.status === 400) {
         setError("data", {
           type: "manual",
