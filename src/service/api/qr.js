@@ -52,6 +52,24 @@ const endpoints = {
         }),
       }
     ),
+  delete: (id, email, password) =>
+    axios.delete(
+      "https:localhost/qr",
+      {
+        auth: {
+          username: email,
+          password: password,
+        },
+        params: {
+          id: id,
+        },
+      },
+      {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    ),
 };
 
 export default endpoints;
