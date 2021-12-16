@@ -4,9 +4,11 @@ import QRCode from "qrcode.react";
 
 import * as dayjs from "dayjs";
 import * as utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 
-function QRBlock(data) {
+function QRBlock({ data, onClickDelete }) {
   const {
+    id,
     title,
     text,
     uuid,
@@ -17,7 +19,10 @@ function QRBlock(data) {
     scans,
   } = data;
   const value = uuid ? `https://localhost/link?uuid=${uuid}` : text;
-  dayjs.extend(utc);
+
+  const handleRemoveClick = () => {
+    onClickDelete(id);
+  };
   return (
     <div className="qr">
       <div className="qr-img">
@@ -77,7 +82,7 @@ function QRBlock(data) {
             />
           </svg>
         </button>
-        <button className="qr-btn">
+        <button className="qr-btn" onClick={handleRemoveClick}>
           <svg
             width="30"
             height="36"
@@ -97,14 +102,15 @@ function QRBlock(data) {
 }
 
 QRBlock.propTypes = {
+  id: PropTypes.number,
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  uuid: PropTypes.string.isRequired,
   date_update: PropTypes.string.isRequired,
   dark_color: PropTypes.string.isRequired,
   light_color: PropTypes.string.isRequired,
   scans: PropTypes.number.isRequired,
   quality: PropTypes.string.isRequired,
+  onClickDelete: PropTypes.func.isRequired,
 };
 
 QRBlock.defaultProps = {
