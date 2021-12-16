@@ -1,4 +1,6 @@
 import React from "react";
+
+import PropTypes from "prop-types";
 import { HexColorPicker } from "react-colorful";
 
 const ColorPicker = React.memo(function ColorPicker({
@@ -44,5 +46,10 @@ const ColorPicker = React.memo(function ColorPicker({
     </div>
   );
 });
+
+ColorPicker.propTypes = {
+  defaultColor: PropTypes.string.isRequired,
+  onClickColor: PropTypes.func.isRequired,
+};
 
 export default ColorPicker;

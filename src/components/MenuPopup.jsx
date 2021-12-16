@@ -1,4 +1,7 @@
 import React from "react";
+
+import PropTypes from "prop-types";
+
 import { Link } from "react-router-dom";
 
 function MenuPopup({ loginState, adminState, onClickLogout }) {
@@ -30,5 +33,11 @@ function MenuPopup({ loginState, adminState, onClickLogout }) {
     </div>
   );
 }
+
+MenuPopup.propTypes = {
+  loginState: PropTypes.bool.isRequired,
+  adminState: PropTypes.bool.isRequired,
+  onClickLogout: PropTypes.func.isRequired,
+};
 
 export default MenuPopup;

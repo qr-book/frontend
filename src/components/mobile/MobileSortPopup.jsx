@@ -1,5 +1,7 @@
 import React from "react";
 
+import PropTypes from "prop-types";
+
 const MobileSortPopup = React.memo(function MobileSortPopup({
   items,
   activeSortType,
@@ -79,5 +81,11 @@ const MobileSortPopup = React.memo(function MobileSortPopup({
     </div>
   );
 });
+
+MobileSortPopup.propTypes = {
+  activeSortType: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onClickSortType: PropTypes.func.isRequired,
+};
 
 export default MobileSortPopup;

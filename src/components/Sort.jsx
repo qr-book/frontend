@@ -1,5 +1,7 @@
 import React from "react";
 
+import PropTypes from "prop-types";
+
 const Sort = React.memo(function Sort({
   items,
   activeSortType,
@@ -42,5 +44,11 @@ const Sort = React.memo(function Sort({
     </div>
   );
 });
+
+Sort.propTypes = {
+  activeSortType: PropTypes.string.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onClickSortType: PropTypes.func.isRequired,
+};
 
 export default Sort;

@@ -6,8 +6,16 @@ import * as dayjs from "dayjs";
 import * as utc from "dayjs/plugin/utc";
 
 function QRBlockAdmin(data) {
-  const { title, text, uuid, date_update, dark_color, light_color, scans, quality } =
-    data;
+  const {
+    title,
+    text,
+    uuid,
+    date_update,
+    dark_color,
+    light_color,
+    scans,
+    quality,
+  } = data;
   const value = uuid ? `https://localhost/link?uuid=${uuid}` : text;
   dayjs.extend(utc);
   return (
@@ -90,20 +98,24 @@ function QRBlockAdmin(data) {
 
 QRBlockAdmin.propTypes = {
   title: PropTypes.string.isRequired,
-  date: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  uuid: PropTypes.string.isRequired,
+  date_update: PropTypes.string.isRequired,
+  dark_color: PropTypes.string.isRequired,
+  light_color: PropTypes.string.isRequired,
   scans: PropTypes.number.isRequired,
-  bgColor: PropTypes.string.isRequired,
-  fgColor: PropTypes.string.isRequired,
+  quality: PropTypes.string.isRequired,
 };
 
 QRBlockAdmin.defaultProps = {
-  title: "QR code",
-  date: "14.12.12",
-  value: "https://ribalych.ru/wp-content/uploads/2014/02/2061.jpg",
+  title: "Hello World",
+  text: "Whoops",
+  uuid: null,
+  date_update: "14.12.12",
+  dark_color: "#000000",
+  light_color: "#ffffff",
   scans: 3301,
-  bgColor: "#000",
-  fgColor: "#fff",
+  quality: "L",
 };
 
 export default QRBlockAdmin;

@@ -1,5 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+import PropTypes from "prop-types";
+
 import { mobileNavBarSvg } from "../../assets/img/header";
 
 function MobileMenuPopup({ loginState, adminState, onClickLogout }) {
@@ -67,5 +70,11 @@ function MobileMenuPopup({ loginState, adminState, onClickLogout }) {
     </div>
   );
 }
+
+MobileMenuPopup.propTypes = {
+  loginState: PropTypes.bool.isRequired,
+  adminState: PropTypes.bool.isRequired,
+  onClickLogout: PropTypes.func.isRequired,
+};
 
 export default MobileMenuPopup;
