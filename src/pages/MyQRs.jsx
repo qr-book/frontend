@@ -4,6 +4,7 @@ import api from "../service/api";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/actions/user";
 import { setSortBy } from "../redux/actions/sorts";
+import { setQRs, removeQR } from "../redux/actions/qrs";
 
 import { MobileSortPopup, QRBlock, Sort } from "../components";
 
@@ -15,7 +16,8 @@ const sortItems = [
 function MyQRs() {
   const { email, password } = useSelector((state) => state.user);
   const { sortBy } = useSelector((state) => state.sorts);
-  const [items, setItems] = React.useState([]);
+  const { items } = useSelector((state) => state.qrs);
+  const [isLoaded, setIsLoaded] = React.useState(0);
   const dispatch = useDispatch();
 
   const onSelectSortType = React.useCallback(
@@ -25,10 +27,20 @@ function MyQRs() {
     [dispatch]
   );
 
+  const onRemoveItem = async (id) => {
+    if (window.confirm("Вы действительно хотите удалить?")) {
+      await api.qr.delete(id, email, password);
+      dispatch(removeQR(id));
+    }
+  };
+
   React.useEffect(() => {
     api.qr
       .get(email, password, sortBy)
-      .then(({ data }) => setItems(data.data))
+      .then(({ data }) => {
+        dispatch(setQRs(data.data));
+        setIsLoaded(1);
+      })
       .catch((e) => {
         if (e.response.status === 401) {
           dispatch(logoutUser());
@@ -58,10 +70,16 @@ function MyQRs() {
         </div>
         <div className="qr-delimiter"></div>
         <div className="qr-list">
-          {items.length > 0 ? (
-            items.map((obj) => <QRBlock key={obj.id} {...obj} />)
+          {isLoaded ? (
+            items.length > 0 ? (
+              items.map((obj) => (
+                <QRBlock key={obj.id} data={obj} onClickDelete={onRemoveItem} />
+              ))
+            ) : (
+              <h1>You have no QR codes {":("}</h1>
+            )
           ) : (
-            <h1>You have no QR codes {":("}</h1>
+            ""
           )}
         </div>
       </div>

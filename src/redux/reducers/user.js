@@ -2,7 +2,7 @@ const initialState = {
   email: null,
   password: null,
   name: null,
-  admin: null,
+  admin: false,
 };
 
 const user = (state = initialState, action) => {
