@@ -4,12 +4,12 @@ import QRCode from "qrcode.react";
 
 import * as dayjs from "dayjs";
 import * as utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 
 function QRBlockMinimize(data) {
   const { title, text, uuid, date_update, dark_color, light_color, quality } =
     data;
   const value = uuid ? `https://localhost/link?uuid=${uuid}` : text;
-  dayjs.extend(utc);
 
   return (
     <div className="qr qr-recent">
@@ -39,7 +39,7 @@ function QRBlockMinimize(data) {
 QRBlockMinimize.propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  uuid: PropTypes.string.isRequired,
+  uuid: PropTypes.string,
   date_update: PropTypes.string.isRequired,
   dark_color: PropTypes.string.isRequired,
   light_color: PropTypes.string.isRequired,
