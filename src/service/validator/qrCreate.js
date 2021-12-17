@@ -11,6 +11,7 @@ const schema = yup.object().shape({
     .min(3, "Min symbols is 3")
     .max(255, "Max symbols is 255")
     .required("Please input text"),
+  frameText: yup.string().max(32, "Max symbols is 32"),
   quality: yup.string().max(1, "Please choose quality"),
 });
 

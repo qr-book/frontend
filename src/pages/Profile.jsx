@@ -67,7 +67,11 @@ function Profile() {
             ) : (
               Array(2)
                 .fill(0)
-                .map((_, index) => <QRLoadBlock key={index} />)
+                .map((_, index) => (
+                  <div className="qr qr-recent">
+                    <QRLoadBlock key={index} />
+                  </div>
+                ))
             )}
           </div>
         </div>

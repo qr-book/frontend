@@ -82,7 +82,11 @@ function MyQRs() {
           ) : (
             Array(2)
               .fill(0)
-              .map((_, index) => <QRLoadBlock key={index} />)
+              .map((_, index) => (
+                <div key={index} className="qr">
+                  <QRLoadBlock />
+                </div>
+              ))
           )}
         </div>
       </div>
