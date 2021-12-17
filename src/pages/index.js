@@ -3,6 +3,7 @@ export { default as Create } from "./Create";
 export { default as Home } from "./Home";
 export { default as Login } from "./Login";
 export { default as MyQRs } from "./MyQRs";
+export { default as Edit } from "./Edit";
 export { default as NotFounded } from "./NotFounded";
 export { default as Profile } from "./Profile";
 export { default as ProfileEdit } from "./ProfileEdit";

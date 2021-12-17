@@ -6,6 +6,7 @@ import {
   Home,
   Login,
   MyQRs,
+  Edit,
   NotFounded,
   Profile,
   ProfileEdit,
@@ -27,6 +28,7 @@ function Pages() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/feed" element={<ProfileEdit />} />
         <Route path="/library" element={<MyQRs />} />
+        <Route path="/library/:id" element={<Edit />} />
       </Route>
       <Route path="/" element={<AdminRoute />}>
         <Route path="/admin" element={<Admin />} />

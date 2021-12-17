@@ -1,5 +1,7 @@
 import React from "react";
+
 import QRCode from "qrcode.react";
+import html2canvas from "html2canvas";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,9 +15,11 @@ import { frame1, frame2, frame3, frame4 } from "../assets/img/frames";
 import { ColorPicker } from "../components";
 
 function Create() {
+  const [title, setTitle] = React.useState();
   const [text, setText] = React.useState();
   const [fgColor, setfgColor] = React.useState("#000000");
   const [bgColor, setbgColor] = React.useState("#ffffff");
+  const [frameText, setFrameText] = React.useState("");
   const [frameBgColor, setFrameBgColor] = React.useState("#000000");
   const [frameTextColor, setFrameTextColor] = React.useState("#ffffff");
   const [frameType, setFrameType] = React.useState(1);
@@ -31,6 +35,21 @@ function Create() {
   });
 
   const dispatch = useDispatch();
+
+  const handleDownload = async () => {
+    html2canvas(document.getElementsByClassName("preview")[0]).then(function (
+      canvas
+    ) {
+      var link = document.createElement("a");
+      link.href = canvas.toDataURL("image/png");
+      link.download = `${title}`;
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    });
+  };
+
   const onSubmit = async ({ title, text, url, frameText, quality }) => {
     try {
       await api.qr.create(
@@ -47,7 +66,7 @@ function Create() {
         frameTextColor.split("#")[1],
         quality
       );
-      window.location.replace("/my");
+      window.location.replace("/library");
     } catch (e) {
       if (e.response.status === 401) {
         dispatch(logoutUser());
@@ -69,7 +88,8 @@ function Create() {
                   placeholder="Title"
                   {...register("title", {
                     required: true,
-                    onChange: () => {
+                    onChange: (e) => {
+                      setTitle(e.target.value);
                       clearErrors("title");
                     },
                   })}
@@ -115,11 +135,19 @@ function Create() {
                     <img src={frame4} alt="" />
                   </li>
                 </ul>
+                <p className="error-msg">{errors.frameText?.message}</p>
                 <input
                   name="frame-text"
                   type="text"
                   placeholder="Add text to the frame"
-                  {...register("frameText")}
+                  defaultValue={frameText}
+                  {...register("frameText", {
+                    required: true,
+                    onChange: (e) => {
+                      clearErrors("frameText");
+                      setFrameText(e.target.value);
+                    },
+                  })}
                 />
                 <label htmlFor="frameColor" className="color-label">
                   <span>Frame color:</span>
@@ -169,7 +197,12 @@ function Create() {
               />
             </div>
             <div className="create-buttons">
-              <input type="button" className="link" value="Download" />
+              <input
+                type="button"
+                className="link"
+                value="Download"
+                onClick={handleDownload}
+              />
               <input type="submit" className="link" value="Create" />
             </div>
           </div>
