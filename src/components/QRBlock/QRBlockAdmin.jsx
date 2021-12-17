@@ -4,8 +4,9 @@ import QRCode from "qrcode.react";
 
 import * as dayjs from "dayjs";
 import * as utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
 
-function QRBlockAdmin(data) {
+function QRBlockAdmin({ data }) {
   const {
     title,
     text,
@@ -17,15 +18,14 @@ function QRBlockAdmin(data) {
     quality,
   } = data;
   const value = uuid ? `https://localhost/link?uuid=${uuid}` : text;
-  dayjs.extend(utc);
   return (
     <div className="qr">
       <div className="qr-img">
         <QRCode
           value={value}
           size={113}
-          bgColor={light_color}
-          fgColor={dark_color}
+          bgColor={"#" + light_color}
+          fgColor={"#" + dark_color}
           includeMargin={true}
           level={quality}
         />
@@ -99,7 +99,7 @@ function QRBlockAdmin(data) {
 QRBlockAdmin.propTypes = {
   title: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  uuid: PropTypes.string.isRequired,
+  uuid: PropTypes.string,
   date_update: PropTypes.string.isRequired,
   dark_color: PropTypes.string.isRequired,
   light_color: PropTypes.string.isRequired,

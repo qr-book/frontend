@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { QRBlockAdmin } from "../components";
+import { QRBlockAdmin, QRLoadBlock } from "../components";
 
 function Admin() {
   const { items, count_qrs, count_users } = useSelector(({ qrs, stats }) => {
@@ -11,6 +11,10 @@ function Admin() {
       count_users: stats.count_users,
     };
   });
+  const [isLoaded, setIsLoaded] = React.useState(0);
+  React.useEffect(() => {
+    setIsLoaded(1);
+  }, []);
 
   return (
     <div className="main admin">
@@ -35,9 +39,21 @@ function Admin() {
         </div>
         <hr className="admin-hr" />
         <div className="qr-list">
-          {items.map((obj) => (
-            <QRBlockAdmin key={obj.id} {...obj} />
-          ))}
+          {isLoaded ? (
+            items.length > 0 ? (
+              items.map((obj) => <QRBlockAdmin key={obj.id} data={obj} />)
+            ) : (
+              <h1>You have no QR codes {":("}</h1>
+            )
+          ) : (
+            Array(2)
+              .fill(0)
+              .map((_, index) => (
+                <div key={index} className="qr">
+                  <QRLoadBlock />
+                </div>
+              ))
+          )}
         </div>
       </div>
     </div>
