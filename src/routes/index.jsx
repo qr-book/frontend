@@ -26,7 +26,7 @@ function Pages() {
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/profile" element={<Profile />} />
         <Route path="/feed" element={<ProfileEdit />} />
-        <Route path="/my" element={<MyQRs />} />
+        <Route path="/library" element={<MyQRs />} />
       </Route>
       <Route path="/" element={<AdminRoute />}>
         <Route path="/admin" element={<Admin />} />

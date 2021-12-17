@@ -35,7 +35,7 @@ function MobileMenuPopup({ loginState, adminState, onClickLogout }) {
               <Link to="/">Home</Link>
               <Link to="/create">Create</Link>
               <Link to="/profile">Profile</Link>
-              <Link to="/my">My QRs</Link>
+              <Link to="/library">My QRs</Link>
               <Link to="/rules">Rules</Link>
               <Link to="/feedback">Feedback</Link>
               <Link to="/admin">Admin</Link>
@@ -48,7 +48,7 @@ function MobileMenuPopup({ loginState, adminState, onClickLogout }) {
               <Link to="/">Home</Link>
               <Link to="/create">Create</Link>
               <Link to="/profile">Profile</Link>
-              <Link to="/my">My QRs</Link>
+              <Link to="/library">My QRs</Link>
               <Link to="/rules">Rules</Link>
               <Link to="/feedback">Feedback</Link>
               <Link to="/" onClick={onClickLogout}>

@@ -39,6 +39,7 @@ function MyQRs() {
       .get(email, password, sortBy)
       .then(({ data }) => {
         dispatch(setQRs(data.data));
+        dispatch(setSortBy("DESC"));
         setIsLoaded(1);
       })
       .catch((e) => {
