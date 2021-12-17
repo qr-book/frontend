@@ -1,16 +1,17 @@
 const initialState = {
-  items: [],
+  items: {},
   isLoaded: false,
 };
 
 const qrs = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_QRS":
+    case "SET_QRS": {
       return {
         ...state,
         items: action.payload,
         isLoaded: true,
       };
+    }
 
     case "SET_LOADED":
       return {
@@ -19,11 +20,14 @@ const qrs = (state = initialState, action) => {
       };
 
     case "REMOVE_QR": {
-      const newItems = [...state.items];
-
+      const newItems = {
+        ...state.items,
+      };
+      // console.log(newItems);
       for (const [key, obj] of Object.entries(newItems)) {
         if (obj.id === action.payload) delete newItems[key];
       }
+      // console.log(newItems);
 
       return {
         ...state,

@@ -27,9 +27,13 @@ function MyQRs() {
     [dispatch]
   );
 
+  const qrs = Object.keys(items).map((key) => {
+    return items[key];
+  });
+
   const onRemoveItem = async (id) => {
     if (window.confirm("Вы действительно хотите удалить?")) {
-      await api.qr.delete(id, email, password);
+      // await api.qr.delete(id, email, password);
       dispatch(removeQR(id));
     }
   };
@@ -38,7 +42,7 @@ function MyQRs() {
     api.qr
       .get(email, password, sortBy)
       .then(({ data }) => {
-        dispatch(setQRs(data.data));
+        dispatch(setQRs({ ...data.data }));
         dispatch(setSortBy("DESC"));
         setIsLoaded(1);
       })
@@ -72,8 +76,8 @@ function MyQRs() {
         <div className="qr-delimiter"></div>
         <div className="qr-list">
           {isLoaded ? (
-            items.length > 0 ? (
-              items.map((obj) => (
+            qrs.length > 0 ? (
+              qrs.map((obj) => (
                 <QRBlock key={obj.id} data={obj} onClickDelete={onRemoveItem} />
               ))
             ) : (
