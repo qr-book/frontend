@@ -4,7 +4,7 @@ import ContentLoader from "react-content-loader";
 const QRLoadBlock = () => (
   <ContentLoader
     speed={2}
-    viewBox="0 0 660 182"
+    viewBox="0 0 660 180"
     backgroundColor="#e2b392"
     foregroundColor="#dda177"
   >
