@@ -12,6 +12,16 @@ const endpoints = {
         order: order,
       },
     }),
+  getOne: (id, email, password) =>
+    axios.get("https:localhost/qr", {
+      auth: {
+        username: email,
+        password: password,
+      },
+      params: {
+        id: id,
+      },
+    }),
   create: (
     email,
     password,
@@ -44,6 +54,50 @@ const endpoints = {
         auth: {
           username: email,
           password: password,
+        },
+      },
+      {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    ),
+  edit: (
+    id,
+    email,
+    password,
+    title,
+    text,
+    fgColor,
+    bgColor,
+    isURL,
+    frameType,
+    frameText,
+    frameBgColor,
+    frameTextColor,
+    quality
+  ) =>
+    axios.put(
+      "https:localhost/qr",
+      {
+        title: title,
+        text: text,
+        light_color: bgColor,
+        dark_color: fgColor,
+        isURL: isURL,
+        frame_id: frameType,
+        frame_text: frameText,
+        frame_color: frameBgColor,
+        frame_text_color: frameTextColor,
+        quality: quality,
+      },
+      {
+        auth: {
+          username: email,
+          password: password,
+        },
+        params: {
+          id: id,
         },
       },
       {
