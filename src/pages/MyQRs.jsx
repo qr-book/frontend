@@ -6,7 +6,7 @@ import { logoutUser } from "../redux/actions/user";
 import { setSortBy } from "../redux/actions/sorts";
 import { setQRs, removeQR } from "../redux/actions/qrs";
 
-import { MobileSortPopup, QRBlock, Sort } from "../components";
+import { MobileSortPopup, QRBlock, QRLoadBlock, Sort } from "../components";
 
 const sortItems = [
   { name: "newest first", type: "DESC" },
@@ -80,7 +80,9 @@ function MyQRs() {
               <h1>You have no QR codes {":("}</h1>
             )
           ) : (
-            ""
+            Array(2)
+              .fill(0)
+              .map((_, index) => <QRLoadBlock key={index} />)
           )}
         </div>
       </div>

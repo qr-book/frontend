@@ -7,7 +7,7 @@ import { logoutUser } from "../redux/actions/user";
 import { setQRs } from "../redux/actions/qrs";
 
 import defaultAvatarPng from "../assets/img/default_avatar.png";
-import { QRBlockMinimize } from "../components";
+import { QRBlockMinimize, QRLoadBlock } from "../components";
 
 function Profile() {
   const { email, password, name } = useSelector((state) => state.user);
@@ -58,12 +58,16 @@ function Profile() {
           <div className="qr-list list-recent">
             {isLoaded ? (
               items.length > 0 ? (
-                items.map((obj) => <QRBlockMinimize key={obj.id} {...obj} />)
+                items
+                  .slice(0, 2)
+                  .map((obj) => <QRBlockMinimize key={obj.id} {...obj} />)
               ) : (
                 <h3>You have no QR codes</h3>
               )
             ) : (
-              ""
+              Array(2)
+                .fill(0)
+                .map((_, index) => <QRLoadBlock key={index} />)
             )}
           </div>
         </div>
