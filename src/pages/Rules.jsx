@@ -66,7 +66,7 @@ function Rules() {
           </div>
         </div>
         <span className="warning">
-          If u got three warns, u will be permanent baned
+          If u got three warns, u will be permanent banned
         </span>
       </div>
     </div>
