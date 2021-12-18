@@ -9,11 +9,12 @@ import { editUser } from "../redux/actions/user";
 import defaultAvatarPng from "../assets/img/default_avatar.png";
 
 function ProfileEdit() {
-  const { lastEmail, password, name } = useSelector(({ user }) => {
+  const { lastEmail, password, name, avatar } = useSelector(({ user }) => {
     return {
       lastEmail: user.email,
       password: user.password,
       name: user.name,
+      avatar: user.avatar,
     };
   });
 
@@ -25,25 +26,36 @@ function ProfileEdit() {
   } = useForm({
     resolver: yupResolver(userEdit),
   });
-
   const dispatch = useDispatch();
-  const onSubmit = async ({ email, name }) => {
-    dispatch(editUser(email, name, lastEmail, password));
+  const onSubmit = async ({ email, name, avatar }) => {
+    dispatch(editUser(email, name, avatar, lastEmail, password));
   };
 
   return (
     <div className="main">
       <div className="container">
-        <form onSubmit={handleSubmit(onSubmit)} className="profile-form">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          encType="multipart/form-data"
+          className="profile-form"
+        >
           <div className="form-avatar">
-            <img src={defaultAvatarPng} alt="" />
+            <img
+              src={
+                avatar !== null
+                  ? `https://localhost/image?hash=${avatar}`
+                  : defaultAvatarPng
+              }
+              alt=""
+            />
             <label htmlFor="avatar">
               <div className="button link">New</div>
               <input
                 id="avatar"
                 type="file"
                 name="avatar"
-                accept="image/jpeg,image/png"
+                accept="image/*"
+                {...register("avatar")}
               />
             </label>
           </div>

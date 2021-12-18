@@ -8,7 +8,7 @@ import defaultAvatarPng from "../assets/img/default_avatar.png";
 import { QRBlockMinimize, QRLoadBlock } from "../components";
 
 function Profile() {
-  const { email, password, name } = useSelector((state) => state.user);
+  const { email, password, name, avatar } = useSelector((state) => state.user);
   const { items, isLoaded } = useSelector((state) => state.qrs);
 
   const qrs = Object.keys(items).map((key) => {
@@ -31,7 +31,10 @@ function Profile() {
             <span>{email}</span>
           </div>
           <div className="profile-img">
-            <img src={defaultAvatarPng} alt="" />
+            <img
+              src={avatar !== null ? defaultAvatarPng : defaultAvatarPng}
+              alt=""
+            />
             <div className="profile-buttons col">
               <Link to="/feed" className="button link">
                 Edit
