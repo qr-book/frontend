@@ -603,6 +603,8 @@ PROFILE
     width: 228px;
     height: 228px;
     margin: 10px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 }
 .profile-buttons {
@@ -684,6 +686,12 @@ PROFILE EDIT
   margin: 20px 0;
   input {
     display: none;
+  }
+  img {
+    width: 228px;
+    height: 228px;
+    border-radius: 50%;
+    overflow: hidden;
   }
 }
 .form-info {
