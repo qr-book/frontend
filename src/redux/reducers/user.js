@@ -2,6 +2,7 @@ const initialState = {
   email: null,
   password: null,
   name: null,
+  avatar: null,
   admin: false,
 };
 
@@ -23,6 +24,12 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         name: action.payload,
+      };
+
+    case "SET_AVATAR":
+      return {
+        ...state,
+        avatar: action.payload,
       };
 
     case "SET_ADMIN":

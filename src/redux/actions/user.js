@@ -10,14 +10,19 @@ export const setPassword = (password) => ({
   payload: password,
 });
 
-export const setAdmin = (admin) => ({
-  type: "SET_ADMIN",
-  payload: admin,
-});
-
 export const setName = (name) => ({
   type: "SET_NAME",
   payload: name,
+});
+
+export const setAvatar = (image_hash) => ({
+  type: "SET_AVATAR",
+  payload: image_hash,
+});
+
+export const setAdmin = (admin) => ({
+  type: "SET_ADMIN",
+  payload: admin,
 });
 
 export const regUser = (email, password) => async (dispatch) => {
@@ -35,12 +40,13 @@ export const authUser = (email, password) => async (dispatch) => {
   try {
     const {
       data: {
-        data: { name, role },
+        data: { name, role, image_hash },
       },
     } = await api.user.login(email, password);
     dispatch(setEmail(email));
     dispatch(setPassword(password));
     dispatch(setName(name));
+    dispatch(setAvatar(image_hash));
     dispatch(setAdmin(role.name === "admin" ? true : false));
   } catch (e) {
     if (e.response.status === 401) {
@@ -50,11 +56,25 @@ export const authUser = (email, password) => async (dispatch) => {
 };
 
 export const editUser =
-  (email, name, lastEmail, password) => async (dispatch) => {
+  (email, name, image, lastEmail, password) => async (dispatch) => {
     try {
-      await api.user.edit(email, name, lastEmail, password);
-      dispatch(setName(name));
+      const data = await api.user.edit(
+        email,
+        name,
+        image[0],
+        lastEmail,
+        password
+      );
       dispatch(setEmail(email));
+      dispatch(setName(name));
+      if (data) {
+        const {
+          data: {
+            data: { image_hash },
+          },
+        } = data;
+        dispatch(setAvatar(image_hash));
+      }
       window.location.replace("/profile");
     } catch (e) {
       if (e.response.status === 401) {

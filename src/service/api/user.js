@@ -23,7 +23,7 @@ const endpoints = {
       password: password,
       name: email.split("@")[0],
     }),
-  edit: (email, nickname, lastEmail, password) =>
+  edit: (email, nickname, image, lastEmail, password) => {
     axios.put(
       "https:localhost/user",
       {
@@ -41,7 +41,26 @@ const endpoints = {
           rejectUnauthorized: false,
         }),
       }
-    ),
+    );
+    if (!image) return;
+    let bodyFormData = new FormData();
+    bodyFormData.append("image", image);
+    return axios.post(
+      "https:localhost/image",
+      bodyFormData,
+      {
+        auth: {
+          username: lastEmail,
+          password: password,
+        },
+      },
+      {
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    );
+  },
 };
 
 export default endpoints;
