@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import arrow from "../assets/img/arrow.png";
 import home from "../assets/img/home.png";
@@ -23,9 +24,9 @@ function Home() {
           </p>
           <div className="create">
             <img src={arrow} width="192" height="192" alt="" />
-            <a href="/create" className="link button">
+            <Link to="/create" className="link button">
               Create
-            </a>
+            </Link>
           </div>
         </div>
       </div>

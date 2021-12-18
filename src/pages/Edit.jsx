@@ -117,8 +117,7 @@ function Edit() {
             break;
         }
       });
-    /* eslint-disable */
-  }, [dispatch, frameText, email, password]);
+  }, [dispatch, setValue, frameText, qrID, email, password]);
 
   return (
     <div className="main create-qrs">
