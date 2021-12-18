@@ -1,32 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import api from "../service/api";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../redux/actions/user";
-import { setQRs } from "../redux/actions/qrs";
+import { fetchQRS } from "../redux/actions/qrs";
 
 import defaultAvatarPng from "../assets/img/default_avatar.png";
 import { QRBlockMinimize, QRLoadBlock } from "../components";
 
 function Profile() {
   const { email, password, name } = useSelector((state) => state.user);
-  const { items } = useSelector((state) => state.qrs);
-  const [isLoaded, setIsLoaded] = React.useState(0);
+  const { items, isLoaded } = useSelector((state) => state.qrs);
+
+  const qrs = Object.keys(items).map((key) => {
+    return items[key];
+  });
 
   const dispatch = useDispatch();
   React.useEffect(() => {
-    api.qr
-      .get(email, password, "DESC")
-      .then(({ data }) => {
-        dispatch(setQRs(data.data));
-        setIsLoaded(1);
-      })
-      .catch((e) => {
-        if (e.response.status === 401) {
-          dispatch(logoutUser());
-        }
-      });
+    dispatch(fetchQRS(email, password, "DESC"));
   }, [dispatch, email, password]);
 
   return (
@@ -57,8 +48,8 @@ function Profile() {
           <hr className="desktop-hr" />
           <div className="qr-list list-recent">
             {isLoaded ? (
-              items.length > 0 ? (
-                items
+              qrs.length > 0 ? (
+                qrs
                   .slice(0, 2)
                   .map((obj) => <QRBlockMinimize key={obj.id} {...obj} />)
               ) : (

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userLogin } from "../service/validator";
-import api from "../service/api";
 import { useDispatch } from "react-redux";
 import { authUser } from "../redux/actions/user";
 
@@ -24,21 +23,12 @@ function Login() {
 
   const dispatch = useDispatch();
   const onSubmit = async ({ email, password }) => {
-    try {
-      const {
-        data: {
-          data: { name, role },
-        },
-      } = await api.user.login(email, password);
-      dispatch(authUser(email, password, name, role));
-    } catch (e) {
-      if (e.response.status === 401) {
-        setError("data", {
-          type: "manual",
-          message: e.response.data.data,
-        });
-      }
-    }
+    dispatch(authUser(email, password)).then((err_data) =>
+      setError("data", {
+        type: "manual",
+        message: err_data,
+      })
+    );
   };
 
   return (

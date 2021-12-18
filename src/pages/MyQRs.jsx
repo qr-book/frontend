@@ -1,10 +1,8 @@
 import React from "react";
 
-import api from "../service/api";
 import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../redux/actions/user";
 import { setSortBy } from "../redux/actions/sorts";
-import { setQRs, removeQR } from "../redux/actions/qrs";
+import { deleteQR, fetchQRS } from "../redux/actions/qrs";
 
 import { MobileSortPopup, QRBlock, QRLoadBlock, Sort } from "../components";
 
@@ -16,10 +14,13 @@ const sortItems = [
 function MyQRs() {
   const { email, password } = useSelector((state) => state.user);
   const { sortBy } = useSelector((state) => state.sorts);
-  const { items } = useSelector((state) => state.qrs);
-  const [isLoaded, setIsLoaded] = React.useState(0);
-  const dispatch = useDispatch();
+  const { items, isLoaded } = useSelector((state) => state.qrs);
 
+  const qrs = Object.keys(items).map((key) => {
+    return items[key];
+  });
+
+  const dispatch = useDispatch();
   const onSelectSortType = React.useCallback(
     (type) => {
       dispatch(setSortBy(type));
@@ -27,30 +28,14 @@ function MyQRs() {
     [dispatch]
   );
 
-  const qrs = Object.keys(items).map((key) => {
-    return items[key];
-  });
-
   const onRemoveItem = async (id) => {
     if (window.confirm("Вы действительно хотите удалить?")) {
-      // await api.qr.delete(id, email, password);
-      dispatch(removeQR(id));
+      dispatch(deleteQR(email, password, id));
     }
   };
 
   React.useEffect(() => {
-    api.qr
-      .get(email, password, sortBy)
-      .then(({ data }) => {
-        dispatch(setQRs({ ...data.data }));
-        dispatch(setSortBy("DESC"));
-        setIsLoaded(1);
-      })
-      .catch((e) => {
-        if (e.response.status === 401) {
-          dispatch(logoutUser());
-        }
-      });
+    dispatch(fetchQRS(email, password, sortBy));
   }, [dispatch, sortBy, email, password]);
 
   return (

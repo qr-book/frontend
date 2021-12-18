@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userReg } from "../service/validator";
-import api from "../service/api";
+
 import { useDispatch } from "react-redux";
-import { authUser } from "../redux/actions/user";
+import { regUser } from "../redux/actions/user";
 
 import emailIconSvg from "../assets/img/email-icon.svg";
 import passIconSvg from "../assets/img/password-icon.svg";
@@ -24,24 +24,14 @@ function Login() {
 
   const dispatch = useDispatch();
   const onSubmit = async ({ email, password }) => {
-    try {
-      const {
-        data: {
-          data: { name, role },
-        },
-      } = await api.user
-        .registation(email, password)
-        .then(() => api.user.login(email, password));
-      dispatch(authUser(email, password, name, role));
-    } catch (e) {
-      console.log(e.response.status);
-      if (e.response.status === 400) {
+    dispatch(regUser(email, password)).then(
+      (err_data) =>
+        err_data &&
         setError("data", {
           type: "manual",
-          message: e.response.data.data,
-        });
-      }
-    }
+          message: err_data,
+        })
+    );
   };
 
   return (

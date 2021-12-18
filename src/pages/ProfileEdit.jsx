@@ -3,9 +3,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { userEdit } from "../service/validator";
-import api from "../service/api";
 import { useSelector, useDispatch } from "react-redux";
-import { setEmail, setName, logoutUser } from "../redux/actions/user";
+import { editUser } from "../redux/actions/user";
 
 import defaultAvatarPng from "../assets/img/default_avatar.png";
 
@@ -22,7 +21,6 @@ function ProfileEdit() {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
     clearErrors,
   } = useForm({
     resolver: yupResolver(userEdit),
@@ -30,20 +28,7 @@ function ProfileEdit() {
 
   const dispatch = useDispatch();
   const onSubmit = async ({ email, name }) => {
-    try {
-      await api.user.edit(email, name, lastEmail, password);
-      dispatch(setName(name));
-      dispatch(setEmail(email));
-      window.location.replace("/profile");
-    } catch (e) {
-      if (e.response.status === 401) {
-        setError("data", {
-          type: "manual",
-          message: e.response.data.data,
-        });
-        dispatch(logoutUser());
-      }
-    }
+    dispatch(editUser(email, name, lastEmail, password));
   };
 
   return (
@@ -64,9 +49,7 @@ function ProfileEdit() {
           </div>
           <div className="form-info">
             <p className="error-msg">
-              {errors.email?.message ||
-                errors.name?.message ||
-                (errors.data ? errors.data.message : null)}
+              {errors.email?.message || errors.name?.message}
             </p>
             <input
               type="text"

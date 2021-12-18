@@ -23,11 +23,10 @@ const qrs = (state = initialState, action) => {
       const newItems = {
         ...state.items,
       };
-      // console.log(newItems);
+
       for (const [key, obj] of Object.entries(newItems)) {
         if (obj.id === action.payload) delete newItems[key];
       }
-      // console.log(newItems);
 
       return {
         ...state,
