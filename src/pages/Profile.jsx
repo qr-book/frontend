@@ -32,7 +32,11 @@ function Profile() {
           </div>
           <div className="profile-img">
             <img
-              src={avatar !== null ? defaultAvatarPng : defaultAvatarPng}
+              src={
+                avatar !== null
+                  ? `/image?hash=${avatar}`
+                  : defaultAvatarPng
+              }
               alt=""
             />
             <div className="profile-buttons col">

@@ -43,7 +43,7 @@ function ProfileEdit() {
             <img
               src={
                 avatar !== null
-                  ? `https://localhost/image?hash=${avatar}`
+                  ? `/image?hash=${avatar}`
                   : defaultAvatarPng
               }
               alt=""

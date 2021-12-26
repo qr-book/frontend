@@ -3,7 +3,7 @@ import https from "https";
 
 const endpoints = {
   get: (email, password, order) =>
-    axios.get("https:localhost/qr", {
+    axios.get("/qr", {
       auth: {
         username: email,
         password: password,
@@ -13,7 +13,7 @@ const endpoints = {
       },
     }),
   getOne: (id, email, password) =>
-    axios.get("https:localhost/qr", {
+    axios.get("/qr", {
       auth: {
         username: email,
         password: password,
@@ -37,7 +37,7 @@ const endpoints = {
     quality
   ) =>
     axios.post(
-      "https:localhost/qr",
+      "/qr",
       {
         title: title,
         text: text,
@@ -78,7 +78,7 @@ const endpoints = {
     quality
   ) =>
     axios.put(
-      "https:localhost/qr",
+      "/qr",
       {
         title: title,
         text: text,
@@ -108,7 +108,7 @@ const endpoints = {
     ),
   delete: (id, email, password) =>
     axios.delete(
-      "https:localhost/qr",
+      "/qr",
       {
         auth: {
           username: email,

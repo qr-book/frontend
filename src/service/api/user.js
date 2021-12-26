@@ -4,7 +4,7 @@ import https from "https";
 const endpoints = {
   login: (email, password) =>
     axios.get(
-      "https:localhost/user",
+      "/user",
       {
         auth: {
           username: email,
@@ -18,14 +18,14 @@ const endpoints = {
       }
     ),
   registation: (email, password) =>
-    axios.post("https:localhost/user", {
+    axios.post("/user", {
       email: email,
       password: password,
       name: email.split("@")[0],
     }),
   edit: (email, nickname, image, lastEmail, password) => {
     axios.put(
-      "https:localhost/user",
+      "/user",
       {
         email: email,
         name: nickname,
@@ -46,7 +46,7 @@ const endpoints = {
     let bodyFormData = new FormData();
     bodyFormData.append("image", image);
     return axios.post(
-      "https:localhost/image",
+      "/image",
       bodyFormData,
       {
         auth: {
