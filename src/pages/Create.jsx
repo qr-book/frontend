@@ -12,9 +12,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../redux/actions/user";
 
 import { frame1, frame2, frame3, frame4 } from "../assets/img/frames";
-import { ColorPicker } from "../components";
+import { ColorPicker, ModalCreate } from "../components";
 
 function Create() {
+  const [modalView, setModalView] = React.useState(0);
   const [title, setTitle] = React.useState();
   const [text, setText] = React.useState();
   const [fgColor, setfgColor] = React.useState("#000000");
@@ -37,6 +38,7 @@ function Create() {
   const dispatch = useDispatch();
 
   const handleDownload = async () => {
+    setFrameType(1);
     html2canvas(document.getElementsByClassName("preview")[0]).then(function (
       canvas
     ) {
@@ -51,6 +53,10 @@ function Create() {
   };
 
   const onSubmit = async ({ title, text, url, frameText, quality }) => {
+    if (!email && !password) {
+      setModalView(1);
+      return;
+    }
     try {
       await api.qr.create(
         email,
@@ -68,6 +74,7 @@ function Create() {
       );
       window.location.replace("/library");
     } catch (e) {
+      console.log(e);
       if (e.response.status === 401) {
         dispatch(logoutUser());
       }
@@ -77,6 +84,7 @@ function Create() {
   return (
     <div className="main create-qrs">
       <div className="container">
+        {modalView === 1 ? <ModalCreate setModalView={setModalView} /> : ""}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="qr-config">
             <div className="qr-config-form">
