@@ -12,6 +12,7 @@ import {
   ProfileEdit,
   Registration,
   Rules,
+  Comments,
 } from "../pages";
 
 import { GuestRoute, PrivateRoute, AdminRoute } from "./custom";
@@ -34,6 +35,7 @@ function Pages() {
         <Route path="/admin" element={<Admin />} />
       </Route>
       <Route path="/rules" element={<Rules />} />
+      <Route path="/feedback" element={<Comments />} />
       <Route path="/create" element={<Create />} />
       <Route path="*" element={<NotFounded />} />
     </Routes>

@@ -74,7 +74,6 @@ function Create() {
       );
       window.location.replace("/library");
     } catch (e) {
-      console.log(e);
       if (e.response.status === 401) {
         dispatch(logoutUser());
       }

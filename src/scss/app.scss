@@ -3,6 +3,7 @@
 @import "components/toggle";
 @import "components/colorPicker";
 @import "components/rating";
+@import "components/hystogram";
 @import "variables";
 @import "fonts";
 
@@ -867,8 +868,53 @@ QR CREATE
 }
 
 /*
-COMMENTS
+FEEDBACK
 */
+.feedback .container {
+  flex-direction: column;
+}
+
+.rating-stars {
+  width: calc(20px * 5);
+  height: 19px;
+  position: relative;
+  background: url("../assets/img/star-mark-empty.svg");
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: calc(20px * var(--r, 1));
+    background: url("../assets/img/star-mark-fill.svg");
+  }
+}
+
+.rating {
+  display: flex;
+  flex-direction: row;
+  margin: 60px 0;
+  .col {
+    align-items: center;
+  }
+  .total {
+    margin: 8px 0;
+    span {
+      font-family: "Humnst777" !important;
+      font-size: 96px;
+    }
+  }
+  .rating-stars {
+    width: calc(28px * 5);
+    height: 26px;
+    background: url("../assets/img/star-total-empty.svg");
+    &:before {
+      width: calc(28px * var(--r, 1));
+      background: url("../assets/img/star-total-fill.svg");
+    }
+  }
+}
+
 .comments {
   display: flex;
   flex-direction: column;
@@ -876,11 +922,28 @@ COMMENTS
   width: 100%;
   max-height: 380px;
   overflow-y: scroll;
+  margin-bottom: 20px;
   &::-webkit-scrollbar {
     width: 0;
   }
   &:root {
     scrollbar-width: 0;
+  }
+}
+
+.comment-button {
+  width: 170px;
+  margin: 20px 0;
+  border-radius: 10px;
+  background-color: $background_color_5;
+  cursor: pointer;
+  color: $color_1;
+  user-select: none;
+  font-size: 18px;
+  line-height: 30px;
+  text-align: center;
+  &:active {
+    font-weight: 700;
   }
 }
 
@@ -895,10 +958,15 @@ COMMENTS
   &-top {
     display: flex;
     justify-content: space-between;
+    font-weight: 700;
     user-select: none;
     img {
       margin-right: 16px;
       width: 36px;
+    }
+    .user {
+      display: flex;
+      align-items: center;
     }
     .star {
       display: inline-block;

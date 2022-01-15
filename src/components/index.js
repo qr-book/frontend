@@ -1,5 +1,6 @@
 export { default as ColorPicker } from "./ColorPicker";
-export { default as CommentBlock } from "./CommentBlock";
+export { default as CommentBlock } from "./CommentBlock/CommentBlock";
+export { default as CommentLoadBlock } from "./CommentBlock/CommentLoadBlock";
 export { default as Footer } from "./Footer";
 export { default as Header } from "./Header";
 export { default as MenuPopup } from "./MenuPopup";

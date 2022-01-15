@@ -1,20 +1,27 @@
 import React from "react";
-import { useSelector } from "react-redux";
+
+import api from "../service/api";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchQRS } from "../redux/actions/qrs";
 
 import { QRBlockAdmin, QRLoadBlock } from "../components";
 
 function Admin() {
-  const { items, count_qrs, count_users } = useSelector(({ qrs, stats }) => {
-    return {
-      items: qrs.items,
-      count_qrs: stats.count_qrs,
-      count_users: stats.count_users,
-    };
+  const [stats, setStats] = React.useState({
+    count_of_users: 0,
+    count_of_qrs: 0,
   });
-  const [isLoaded, setIsLoaded] = React.useState(0);
+  const { items, isLoaded } = useSelector((state) => state.qrs);
+  const dispatch = useDispatch();
+
+  const qrs = Object.keys(items).map((key) => {
+    return items[key];
+  });
+
   React.useEffect(() => {
-    setIsLoaded(1);
-  }, []);
+    setStats(api.stats.get_().then(({ data }) => setStats(data.data)));
+    dispatch(fetchQRS("goga@mail.ru", "gogamail", "DESC"));
+  }, [dispatch]);
 
   return (
     <div className="main admin">
@@ -22,13 +29,13 @@ function Admin() {
         <div className="stat">
           <div className="stat-block user-count">
             <div className="col">
-              <span>{count_users}</span>
+              <span>{stats.count_of_users}</span>
               <p className="stat-title">Count of users</p>
             </div>
           </div>
           <div className="stat-block user-count">
             <div className="col">
-              <span>{count_qrs}</span>
+              <span>{stats.count_of_qrs}</span>
               <p className="stat-title">Count of QRs</p>
             </div>
           </div>
@@ -40,10 +47,10 @@ function Admin() {
         <hr className="admin-hr" />
         <div className="qr-list">
           {isLoaded ? (
-            items.length > 0 ? (
-              items.map((obj) => <QRBlockAdmin key={obj.id} data={obj} />)
+            qrs.length > 0 ? (
+              qrs.map((obj) => <QRBlockAdmin key={obj.id} data={obj} />)
             ) : (
-              <h1>You have no QR codes {":("}</h1>
+              <h2>QR Book is empty {":("}</h2>
             )
           ) : (
             Array(2)

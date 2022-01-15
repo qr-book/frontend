@@ -240,4 +240,25 @@
     width: 88px !important;
     height: 105px !important;
   }
+
+  /*
+  COMMENTS
+  */
+  .comment {
+    width: 86% !important;
+  }
+
+  .rating {
+    margin: 48px 0 !important;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 400px) {
+  .comment {
+    .user {
+      span {
+        max-width: 120px;
+      }
+    }
+  }
 }

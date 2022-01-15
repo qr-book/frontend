@@ -1,0 +1,116 @@
+// COLORS
+
+$b: #e2b392;
+$b-marks: #eb923c;
+$w: #fff;
+
+// TRANSITIONS
+
+$tr01: cubic-bezier(0.4, 0, 1, 1);
+$bezier: cubic-bezier(0.17, 0.67, 0, 1);
+
+.marks {
+  animation-name: marks;
+}
+
+section {
+  article.marks {
+    width: 380px;
+    height: auto;
+    margin-left: 30px;
+    p {
+      background: $b;
+      margin: 14px 0;
+      padding: 0 16px;
+      line-height: 28px;
+      z-index: 2;
+      color: $w;
+      position: relative;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    div {
+      span:nth-child(1) {
+        z-index: -2;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: 100%;
+        width: 100%;
+      }
+
+      span:nth-child(2) {
+        z-index: -1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: $b-marks;
+        height: 100%;
+      }
+    }
+
+    div:nth-child(1) {
+      span:nth-child(2) {
+        width: calc(var(--marks05, 1));
+        animation-delay: 0s;
+      }
+    }
+
+    div:nth-child(2) {
+      span:nth-child(2) {
+        width: calc(var(--marks04, 1));
+        animation-delay: 0.05s;
+      }
+    }
+
+    div:nth-child(3) {
+      span:nth-child(2) {
+        width: calc(var(--marks03, 1));
+        animation-delay: 0.1s;
+      }
+    }
+
+    div:nth-child(4) {
+      span:nth-child(2) {
+        width: calc(var(--marks02, 1));
+        animation-delay: 0.15s;
+      }
+    }
+
+    div:nth-child(5) {
+      span:nth-child(2) {
+        width: calc(var(--marks01, 1));
+        animation-delay: 0.2s;
+      }
+    }
+  }
+}
+
+.marks {
+  animation: marks 1s $tr01;
+}
+
+@keyframes marks {
+  0% {
+    left: -100px;
+    opacity: 0;
+  }
+  100% {
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 996px) {
+  section {
+    article.marks {
+      width: 150px;
+    }
+  }
+}
