@@ -14,6 +14,8 @@ $bezier: cubic-bezier(0.17, 0.67, 0, 1);
 }
 
 section {
+  display: flex;
+  width: 50%;
   article.marks {
     width: 380px;
     height: auto;
@@ -104,13 +106,5 @@ section {
   100% {
     left: 0;
     opacity: 1;
-  }
-}
-
-@media (min-width: 360px) and (max-width: 996px) {
-  section {
-    article.marks {
-      width: 150px;
-    }
   }
 }

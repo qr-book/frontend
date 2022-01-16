@@ -7,6 +7,7 @@ export { default as MenuPopup } from "./MenuPopup";
 export { default as MobileMenuPopup } from "./mobile/MobileMenuPopup";
 export { default as MobileSortPopup } from "./mobile/MobileSortPopup";
 export { default as ModalCreate } from "./ModalCreate";
+export { default as ModalComment } from "./ModalComment";
 export { default as QRBlock } from "./QRBlock/QRBlock";
 export { default as QRBlockAdmin } from "./QRBlock/QRBlockAdmin";
 export { default as QRBlockMinimize } from "./QRBlock/QRBlockMinimize";

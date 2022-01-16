@@ -1,12 +1,14 @@
 $stars: 5;
 $star-size: 20px;
 $star-spacing: 2px;
-$star-on-color: #DA623F;
-$star-off-color: #FFFFFF;
+$star-on-color: #da623f;
+$star-off-color: #aaaaaa;
 
-.rating-stars {
+.rating-mark {
+  align-self: flex-start;
   width: ($star-size * $stars) + ($star-spacing * ($stars - 1));
   height: $star-size;
+  margin: 0 0 16px 10px;
 
   label {
     float: right;

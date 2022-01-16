@@ -1,5 +1,5 @@
 import React from "react";
-import { CommentBlock, CommentLoadBlock } from "../components";
+import { CommentBlock, CommentLoadBlock, ModalComment } from "../components";
 import api from "../service/api";
 
 function Comments() {
@@ -8,25 +8,27 @@ function Comments() {
 
   let total = Number(stats?.stats?.mean);
   let marks = { data: new Array(6).fill(0), total: 0 };
+  console.log(marks);
+
+  const countMarks = () => {
+    let stats_ = stats.stats;
+    for (let key in stats_) {
+      if (stats_[key]?.mark) {
+        marks.data[stats_[key].mark] = stats_[key].count;
+        marks.total += stats_[key].count;
+      }
+    }
+    if (marks.total)
+      for (let mark = 1; mark < 6; ++mark) {
+        marks.data[mark] = ((marks.data[mark] * 100) / marks.total).toFixed(1);
+      }
+  };
+  countMarks();
 
   const onRemoveComment = (id) => {
     api.stats.delete(id);
     setStats(api.stats.get().then(({ data }) => setStats(data.data)));
   };
-
-  const countMarks = () => {
-    let stats_ = stats.stats;
-    for (let key in stats_) {
-      if (stats_[key].mark) {
-        marks.data[stats_[key].mark] = stats_[key].count;
-        marks.total += stats_[key].count;
-      }
-    }
-    for (let mark = 1; mark < 6; ++mark) {
-      marks.data[mark] = ((marks.data[mark] * 100) / marks.total).toFixed(1);
-    }
-  };
-  countMarks();
 
   React.useEffect(() => {
     setStats(
@@ -49,11 +51,9 @@ function Comments() {
             </div>
             <div
               className="rating-stars"
-              style={{ "--r": stats?.stats?.mean }}
+              style={{ "--r": stats?.stats?.mean | 0 }}
             ></div>
-            <div className="comment-button">
-              Add comment
-            </div>
+            <ModalComment />
           </div>
           <section
             id="marks"
