@@ -8,7 +8,6 @@ function Comments() {
 
   let total = Number(stats?.stats?.mean);
   let marks = { data: new Array(6).fill(0), total: 0 };
-  console.log(marks);
 
   const countMarks = () => {
     let stats_ = stats.stats;
@@ -24,11 +23,6 @@ function Comments() {
       }
   };
   countMarks();
-
-  const onRemoveComment = (id) => {
-    api.stats.delete(id);
-    setStats(api.stats.get().then(({ data }) => setStats(data.data)));
-  };
 
   React.useEffect(() => {
     setStats(
@@ -87,11 +81,7 @@ function Comments() {
           {isLoaded ? (
             stats.comments?.length > 0 ? (
               stats.comments.map((obj) => (
-                <CommentBlock
-                  key={obj.id}
-                  data={obj}
-                  onClickDelete={onRemoveComment}
-                />
+                <CommentBlock key={obj.id} data={obj} />
               ))
             ) : (
               <h1>You can be first! Just do it!</h1>

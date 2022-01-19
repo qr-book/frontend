@@ -102,7 +102,9 @@ INDEX
   span {
     align-self: flex-start;
     margin: 0 0 16px 24px;
-    font-weight: 500;
+  }
+  .username {
+    font-weight: 700;
   }
   textarea {
     width: calc(100% - 40px);
@@ -118,19 +120,31 @@ INDEX
       scrollbar-width: 0;
     }
   }
-  .publish-modal-button {
-    align-self: flex-end;
-    margin-top: 20px;
-    width: 125px;
-    padding: 8px 0;
-    border-radius: 10px;
-    cursor: pointer;
-    color: $color_1;
-    font-size: 18px;
-    background-color: $background_color_5;
-    &:active {
-      font-weight: 700;
+  .modal {
+    &--buttons {
+      align-self: flex-end;
     }
+    &--button {
+      display: inline-block;
+      align-self: flex-end;
+      margin: 20px 0 0 10px;
+      width: 125px;
+      padding: 8px 0;
+      border-radius: 10px;
+      cursor: pointer;
+      color: $color_1;
+      font-size: 18px;
+
+      &:active {
+        font-weight: 700;
+      }
+    }
+  }
+  .modal--button--delete {
+    background-color: $background_color_10;
+  }
+  .modal--button--publish {
+    background-color: $background_color_5;
   }
 }
 
