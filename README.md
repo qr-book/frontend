@@ -3,20 +3,42 @@
 A service for creating QR codes.
 
 # Installation
-
-Clone this repository
-
-```
-git clone https://github.com/JollyBanny/react-qr.git
+```cmd
+git clone https://github.com/qr-book/frontend.git
+cd frontend
+npm install
 ```
 
 # Launch app
-
 ```
 yarn start
 ```
 
-# Note
-To work properly, you will need to download and run the backend
-
-[Backend repository](https://github.com/ada0l/qr_book_backend)
+# Project structure
+```
+├───public
+└───src
+    ├───assets
+    │   └───img
+    │       ├───footer
+    │       ├───frames
+    │       ├───header
+    │       └───rules
+    ├───components
+    │   ├───CommentBlock
+    │   ├───mobile
+    │   └───QRBlock
+    ├───pages
+    ├───redux
+    │   ├───actions
+    │   └───reducers
+    ├───routes
+    │   └───custom
+    ├───scss
+    │   ├───components
+    │   ├───fonts
+    │   └───libs
+    └───service
+        ├───api
+        └───validator
+```
